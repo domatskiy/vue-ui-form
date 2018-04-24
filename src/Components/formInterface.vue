@@ -31,7 +31,7 @@ class FormButton {
   }
 }
 export default {
-  name: 'Form',
+  name: 'formInterface',
   props: {
     title: {
       type: String,

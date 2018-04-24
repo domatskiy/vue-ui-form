@@ -1,6 +1,6 @@
 const formIntarfasePlugin = {
   install (VueInstance, options) {
-    VueInstance.component('form-interface', require('./Components/Form.vue'))
+    VueInstance.component('form-interface', require('./Components/formInterface.vue'))
     VueInstance.component('form-view', require('./Components/FormView.vue'))
     VueInstance.component('form-input', require('./Components/FormInput.vue'))
     VueInstance.component('form-text', require('./Components/FormText.vue'))

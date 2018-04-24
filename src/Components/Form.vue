@@ -1,10 +1,15 @@
 <template>
     <form class="form" @submit="submitForm" :class="formClass">
+		<div class="form__processing">
+			<slot name="processing">Sending ...</slot>
+		</div>
         <div class="form__title" v-if="title">{{title}}</div>
+		<slot name="desc"></slot>
         <div class="form__body">
 			<slot></slot>
 		</div>
         <div class="form__errors">
+			<slot name="errors"></slot>
 			<ul>
 				<li v-for="err in errors"></li>
 			</ul>

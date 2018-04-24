@@ -13,6 +13,7 @@ npm i vue-form-interface
     @save="saveForm" 
     @apply="applyForm"
     @cancel="cancelForm">
+    <div slot="processing">Sending :)</div>
     <form-view title="id" v-model="formData.id"></form-view>
     <form-checkbox title="active" v-model="formData.active"></form-checkbox>
     <form-input title="name" v-model="formData.name"></form-input>

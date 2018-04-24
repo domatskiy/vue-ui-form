@@ -1,0 +1,112 @@
+<template>
+    <form class="form" @submit="submitForm" :class="formClass">
+        <div class="form__title" v-if="title">{{title}}</div>
+        <div class="form__body">
+			<slot></slot>
+		</div>
+        <div class="form__errors">
+			<ul>
+				<li v-for="err in errors"></li>
+			</ul>
+		</div>
+        <div class="form__buttons">
+			<button type="button" v-for="button in buttons" :class="[buttonsClass, button.code, button.class, (button.def === true ? (button.class ? button.class + '--def' : 'def') : null)]" @click="buttonClick(button.code, $event)">{{button.name}}</button>
+		</div>
+    </form>
+</template>
+
+<script>
+
+class FormButton {
+  constructor ($code, $name, $class, $def) {
+    this.name = $name
+    this.code = $code
+    this.class = $class
+    this.def = $def
+  }
+}
+export default {
+  name: 'Form',
+  props: {
+    title: {
+      type: String,
+      required: false,
+      default: ''
+    },
+	buttons: {
+      type: Array,
+      required: false,
+      default: function () {
+        return [
+          new FormButton('save', 'Сохранить', null, true),
+          new FormButton('apply', 'Применить'),
+          new FormButton('cancel', 'Отмена')
+		]
+      }
+    },
+    buttonsClass: {
+      type: String,
+      required: false,
+      default: ''
+    },
+	data: {
+      type: Object,
+      required: false,
+      default: function () {
+        return {}
+      }
+    },
+    errors: {
+	  required: false,
+      default: function () {
+        return {}
+      }
+	},
+	processing: {
+	  type: Boolean,
+      required: false,
+      default: function () {
+        return false
+	  }
+	}
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    submitForm: function ($event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      this.buttons.forEach($button => {
+        if ($button.def === true) {
+          this.$emit($button.code, this.data)
+		}
+      })
+	},
+    buttonClick: function ($code, $event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      this.$emit($code, this.data)
+	}
+  },
+  computed: {
+	formClass: function () {
+		let classes = []
+
+		if (Array.isArray(this.errors) && this.errors.length > 0) {
+			classes.push('form--error');
+		} else if (typeof this.errors === 'object' && Object.keys(this.errors).length > 0) {
+            classes.push('form--error');
+		}
+
+		if (this.processing) {
+			classes.push('form--processing');
+		}
+		if (this.success) {
+			classes.push('form--success');
+		}
+		return classes.join(' ')
+	}
+  }
+}
+</script>

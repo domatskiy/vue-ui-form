@@ -1,13 +1,13 @@
 {
-  "name": "vue-form-interface",
-  "version": "0.5.0",
+  "name": "vue-form-ui",
+  "version": "0.5.1",
   "description": "vue form interace",
   "author": "Domatskiy",
   "private": false,
   "main": "./src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/domatskiy/vue-form-interface.git"
+    "url": "https://github.com/domatskiy/vue-form-ui.git"
   },
   "scripts": {
     "build": "webpack --config ./build/webpack.prod.conf.js --progress --hide-modules",
@@ -19,6 +19,7 @@
   "keywords": [
     "vue form",
     "interace",
+    "form ui",
     "admin",
     "input",
     "file",

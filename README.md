@@ -25,9 +25,8 @@ npm i vue-form-interface
 example app
 
 ```js
-
-import FormInterface from 'plugin/Components/Form'
-Vue.component('form-interface', FormInterface)
+import formInterface from 'vue-form-interface'
+Vue.use(formInterface)
  
 export default {
   name: 'app',

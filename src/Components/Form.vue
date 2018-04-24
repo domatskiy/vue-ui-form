@@ -1,5 +1,5 @@
 <template>
-    <form class="form" @submit="save" :class="formClass">
+    <form class="form" @submit="submitForm" :class="formClass">
         <div class="form__title" v-if="title">{{title}}</div>
         <div class="form__body">
 			<slot></slot>
@@ -10,14 +10,21 @@
 			</ul>
 		</div>
         <div class="form__buttons">
-			<button type="button" class="save" v-if="buttons.save">{{buttons.save}}</button>
-			<button type="button" class="apply" v-if="buttons.apply">{{buttons.apply}}</button>
-			<button type="button" class="cancel" v-if="buttons.cancel">{{buttons.cancel}}</button>
+			<button type="button" v-for="button in buttons" :class="[buttonsClass, button.code, button.class, (button.def === true ? (button.class ? button.class + '--def' : 'def') : null)]" @click="buttonClick(button.code, $event)">{{button.name}}</button>
 		</div>
     </form>
 </template>
 
 <script>
+
+class FormButton {
+  constructor ($code, $name, $class, $def) {
+    this.name = $name
+    this.code = $code
+    this.class = $class
+    this.def = $def
+  }
+}
 export default {
   name: 'Form',
   props: {
@@ -27,15 +34,20 @@ export default {
       default: ''
     },
 	buttons: {
-      type: Object,
+      type: Array,
       required: false,
       default: function () {
-        return {
-		  save: 'Сохранить', 
-		  apply: 'Применить',
-		  cancel: 'Отмена'
-		}
+        return [
+          new FormButton('save', 'Сохранить', null, true),
+          new FormButton('apply', 'Применить'),
+          new FormButton('cancel', 'Отмена')
+		]
       }
+    },
+    buttonsClass: {
+      type: String,
+      required: false,
+      default: ''
     },
 	data: {
       type: Object,
@@ -44,7 +56,7 @@ export default {
         return {}
       }
     },
-	errors: {
+    errors: {
 	  required: false,
       default: function () {
         return {}
@@ -53,36 +65,40 @@ export default {
 	processing: {
 	  type: Boolean,
       required: false,
-      default: false
+      default: function () {
+        return false
+	  }
 	}
   },
   data () {
     return {}
   },
-  mounted: function () {},
   methods: {
-    save: function (event) {
-	  e.stopPropagation()
-      e.preventDefault()
-	  this.$emmit('save', this.data)	
-    },
-	apply: function (event) {
-      e.stopPropagation()
-      e.preventDefault()
-	  this.$emmit('apply', this.data)	
-    },
-	cancel: function (event) {
-      e.stopPropagation()
-      e.preventDefault()
-	  this.$emmit('cancel', this.data)
-    }
+    submitForm: function ($event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      this.buttons.forEach($button => {
+        if ($button.def === true) {
+          this.$emit($button.code, this.data)
+		}
+      })
+	},
+    buttonClick: function ($code, $event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      this.$emit($code, this.data)
+	}
   },
   computed: {
 	formClass: function () {
 		let classes = []
-		if (this.errors) {
+
+		if (Array.isArray(this.errors) && this.errors.length > 0) {
 			classes.push('form--error');
+		} else if (typeof this.errors === 'object' && Object.keys(this.errors).length > 0) {
+            classes.push('form--error');
 		}
+
 		if (this.processing) {
 			classes.push('form--processing');
 		}

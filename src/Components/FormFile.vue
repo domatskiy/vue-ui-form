@@ -158,16 +158,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import "../__functions";
+    /*@import "../__functions";*/
 
     .file-list{
-        .flex(row, wrap, flex-start);
+        /*.flex(row, wrap, flex-start);*/
         margin: 0 -10px;
 
         &__item{
             width: 100px;
             padding: 10px;
-            .border-box;
+            box-sizing: border-box;
 
             img{
               width: 100px;

@@ -1,17 +1,25 @@
-<template>
+<template lang="html">
     <div class="form__group form__group--select" :class="className">
         <label>{{title}}</label>
-        <select :value="value">
-            <option v-if="required === false"></option>
-            <option v-for="item in list" :value="item.id" :selected="item.id == value" :style="item.color ? 'color:' + item.color : ''">{{item.name}}</option>
-        </select>
+        <selectpicker
+            :value="value"
+            :list="list"
+            :multi="multi"
+            :search="search"
+            :placeholder="placeholder"
+            :searchPlaceholder="searchPlaceholder"
+            v-model="spVal">
+        </selectpicker>
         <span class="form__group__errors">{{error}}</span>
     </div>
 </template>
 
 <script>
+import selectpicker from 'vue-selectpicker/src/selectPicker.vue'
+
 export default {
-  name: 'SelectPicker',
+  name: 'FormSelect',
+  components: {selectpicker},
   props: {
     required: {
       type: Boolean,
@@ -23,26 +31,69 @@ export default {
       type: String,
       default: ''
     },
-    list: {
-      type: Array
+    placeholder: {
+      type: String,
+      required: false,
+      default: 'Выбор значения'
     },
     value: {
+      required: false,
       default: ''
     },
-    name: {
+    multi: {
+      type: Boolean,
+      required: false,
+      default: function () {
+        return true
+      }
+    },
+    search: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    searchPlaceholder: {
       type: String,
-      default: ''
+      required: false,
+      default: 'Поиск'
+    },
+    list: {
+      type: Object,
+      required: false,
+      default: function () {
+        return {}
+      }
+    },
+    data: {
+      type: Array,
+      required: false,
+      default: function () {
+        return []
+      }
+    },
+    buttons: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     error: {
-      type: String,
       default: ''
     }
   },
+  data () {
+    return {
+      spVal: null
+    }
+  },
+  created: function () {
+    if (this.multi === true) {
+      this.spVal = []
+    }
+  },
   mounted: function () {
-    let vm = this
-    let select = this.$el.querySelector('select')
-    select.addEventListener('change', function (e) {
-      vm.$emit('input', select.value)
+    // let vm = this
+    this.$watch('spVal', ($newValue) => {
+      this.$emit('input', $newValue)
     })
   },
   computed: {
@@ -66,10 +117,4 @@ export default {
 </script>
 
 <style lang="less">
-    .form__group{
-        input[type=color]{
-            width: 50px;
-            padding: 0;
-        }
-    }
 </style>

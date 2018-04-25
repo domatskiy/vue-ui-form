@@ -13,12 +13,12 @@
 			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
 			<form-input title="name" v-model="formData.name"></form-input>
 			<form-text title="name" v-model="formData.name"></form-text>
+			<form-select title="select" v-model="formData.select" :list="opt"></form-select>
 			<form-file title="image" v-model="formData.image"></form-file>
 			<form-view-files title="image" v-model="formData.image_view"></form-view-files>
 
 		</form-interface>
 		<br><br>
-		{{formData}}
 		{{formData}}
     </div>
 </template>
@@ -28,15 +28,27 @@
     import FormUI from 'plugin'
     Vue.use(FormUI)
 
+    // import selectPicker from 'vue-selectpicker'
+    // Vue.use(selectPicker)
+
     export default {
       name: 'app',
       components: {},
       data () {
         return {
+          opt: {
+            1: 'test 1',
+            2: 'test 2',
+            3: 'test 3',
+            4: 'test 4',
+            10: 'test 10',
+            32: 'test 32'
+		  },
      	  formData: {
 			id: 1,
 			active: 1,
 			name: 'test',
+            select: [],
             image: null,
             image_view: null
 		  },

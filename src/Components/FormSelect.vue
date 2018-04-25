@@ -2,7 +2,6 @@
     <div class="form__group form__group--select" :class="className">
         <label>{{title}}</label>
         <selectpicker
-            :value="value"
             :list="list"
             :multi="multi"
             :search="search"
@@ -44,7 +43,7 @@ export default {
       type: Boolean,
       required: false,
       default: function () {
-        return true
+        return false
       }
     },
     search: {
@@ -86,6 +85,7 @@ export default {
     }
   },
   created: function () {
+    console.info('created, value=', this.value)
     if (this.multi === true) {
       this.spVal = []
     }
@@ -93,6 +93,7 @@ export default {
   mounted: function () {
     // let vm = this
     this.$watch('spVal', ($newValue) => {
+      console.info('spVal', $newValue)
       this.$emit('input', $newValue)
     })
   },

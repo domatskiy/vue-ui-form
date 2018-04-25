@@ -13,7 +13,12 @@
 			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
 			<form-input title="name" v-model="formData.name"></form-input>
 			<form-text title="name" v-model="formData.name"></form-text>
-			<form-select title="select" v-model="formData.select" :list="opt"></form-select>
+
+			<form-select title="select one" v-model="formData.select" :list="opt"></form-select>
+
+			{{formData.selectMulti}}
+			<form-select title="select multi" v-model="formData.selectMulti" :multi="true" :list="opt"></form-select>
+
 			<form-file title="image" v-model="formData.image"></form-file>
 			<form-view-files title="image" v-model="formData.image_view"></form-view-files>
 
@@ -48,7 +53,8 @@
 			id: 1,
 			active: 1,
 			name: 'test',
-            select: [],
+            select: 2,
+            selectMulti: [3, 4],
             image: null,
             image_view: null
 		  },

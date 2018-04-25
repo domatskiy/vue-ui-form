@@ -1,6 +1,6 @@
-<template>
+<template lang="html">
     <form class="form" @submit="submitForm" :class="formClass">
-		<div class="form__processing">
+		<div class="form__processing" v-if="processing">
 			<slot name="processing">Sending ...</slot>
 		</div>
         <div class="form__title" v-if="title">{{title}}</div>
@@ -15,7 +15,12 @@
 			</ul>
 		</div>
         <div class="form__buttons">
-			<button type="button" v-for="button in buttons" :class="[buttonsClass, button.code, button.class, (button.def === true ? (button.class ? button.class + '--def' : 'def') : null)]" @click="buttonClick(button.code, $event)">{{button.name}}</button>
+			<button
+				type="button"
+				v-for="button in buttons"
+				:class="[buttonsClass, button.code, button.class, (button.def === true ? (button.class ? button.class + '--def' : 'def') : null)]"
+				:disabled="processing === true"
+				@click="buttonClick(button.code, $event)">{{button.name}}</button>
 		</div>
     </form>
 </template>

@@ -89,13 +89,11 @@ export default {
     if (this.multi === true) {
       this.spVal = Object.values(this.value)
     } else {
-      this.spVal = this.value
+      this.spVal = parseInt(this.value)
     }
   },
   mounted: function () {
-    // let vm = this
     this.$watch('spVal', ($newValue) => {
-      console.info('spVal', $newValue)
       this.$emit('input', $newValue)
     })
   },
@@ -117,6 +115,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>

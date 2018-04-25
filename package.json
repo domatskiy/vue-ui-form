@@ -1,6 +1,6 @@
 {
   "name": "vue-ui-form",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "vue form interace",
   "author": "Domatskiy",
   "private": false,
@@ -96,7 +96,7 @@
     "vue": "^2.3",
     "vue-hot-reload-api": "^2.0.8",
     "vue-loader": "^14.2.2",
-    "vue-selectpicker": "^0.9.3",
+    "vue-selectpicker": "^0.9.5",
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^3.6.0",

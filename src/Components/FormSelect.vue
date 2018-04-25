@@ -2,6 +2,7 @@
     <div class="form__group form__group--select" :class="className">
         <label>{{title}}</label>
         <selectpicker
+            :value="spVal"
             :list="list"
             :multi="multi"
             :search="search"
@@ -85,9 +86,10 @@ export default {
     }
   },
   created: function () {
-    console.info('created, value=', this.value)
     if (this.multi === true) {
-      this.spVal = []
+      this.spVal = Object.values(this.value)
+    } else {
+      this.spVal = this.value
     }
   },
   mounted: function () {
@@ -110,7 +112,6 @@ export default {
       if (val === undefined || val === null) {
         val = ''
       }
-      console.log('computed val', val)
       return val
     }
   }

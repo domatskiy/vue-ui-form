@@ -14,7 +14,7 @@
 			<form-input title="name" v-model="formData.name"></form-input>
 			<form-text title="name" v-model="formData.name"></form-text>
 
-			<form-select title="select one" v-model="formData.select" :list="opt"></form-select>
+			<form-select title="select one" v-model="formData.selectOne" :list="opt"></form-select>
 
 			{{formData.selectMulti}}
 			<form-select title="select multi" v-model="formData.selectMulti" :multi="true" :list="opt"></form-select>
@@ -47,13 +47,14 @@
             3: 'test 3',
             4: 'test 4',
             10: 'test 10',
-            32: 'test 32'
+            32: 'test 32',
+            'z': 'test z'
 		  },
      	  formData: {
 			id: 1,
 			active: 1,
 			name: 'test',
-            select: 2,
+            selectOne: 2,
             selectMulti: [3, 4],
             image: null,
             image_view: null

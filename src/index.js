@@ -1,17 +1,35 @@
-const formIntarfasePlugin = {
+import FormInterface from './Components/FormInterface.vue'
+import FormView from './Components/FormView.vue'
+import FormInput from './Components/FormInput.vue'
+import FormText from './Components/FormText.vue'
+import FormCheckbox from './Components/FormCheckbox.vue'
+import FormFile from './Components/FormFile.vue'
+import FormViewFiles from './Components/FormViewFiles.vue'
+
+const FormUI = {
   install (VueInstance, options) {
-    VueInstance.component('form-interface', require('./Components/formInterface.vue'))
-    VueInstance.component('form-view', require('./Components/FormView.vue'))
-    VueInstance.component('form-input', require('./Components/FormInput.vue'))
-    VueInstance.component('form-text', require('./Components/FormText.vue'))
-    VueInstance.component('form-checkbox', require('./Components/FormCheckBox.vue'))
-    VueInstance.component('form-file', require('./Components/FormFile.vue'))
-    VueInstance.component('form-view-file', require('./Components/FormViewFiles.vue'))
+    console.log('FormUI install')
+
+    const components = [
+      FormInterface,
+      FormView,
+      FormInput,
+      FormText,
+      FormCheckbox,
+      FormFile,
+      FormViewFiles
+    ]
+
+    components.map(component => {
+      console.log(component.name)
+      VueInstance.component(component.name, component);
+    })
   }
 }
 
+
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(formIntarfasePlugin)
+  window.Vue.use(FormUI)
 }
 
-export default formIntarfasePlugin
+export default FormUI

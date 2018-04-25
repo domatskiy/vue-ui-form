@@ -8,24 +8,25 @@
 			@save="saveForm" 
 			@apply="applyForm"
 			@cancel="cancelForm">
+
 			<form-view title="id" v-model="formData.id"></form-view>
 			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
 			<form-input title="name" v-model="formData.name"></form-input>
 			<form-text title="name" v-model="formData.name"></form-text>
 			<form-file title="image" v-model="formData.image"></form-file>
-			<form-view-file title="image" v-model="formData.image_view"></form-view-file>
+			<form-view-files title="image" v-model="formData.image_view"></form-view-files>
 
 		</form-interface>
 		<br><br>
+		{{formData}}
 		{{formData}}
     </div>
 </template>
 
 <script>
     import Vue from 'vue'
-    import FormInterface from 'plugin'
-
-    Vue.use(FormInterface)
+    import FormUI from 'plugin'
+    Vue.use(FormUI)
 
     export default {
       name: 'app',
@@ -48,7 +49,7 @@
 		  console.info('saveForm', $data)
 		},
 		applyForm: function ($data) {
-		  console.info('applyForm', $data)
+		  console.info('applyForm:', $data)
 		},
 		cancelForm: function ($data) {
 		  console.info('cancelForm', $data)

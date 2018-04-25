@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 
+console.log('__dirname', __dirname, path.resolve(__dirname, '../dist/index.js'))
+
 module.exports = {
   entry: './src/main.js',
   output: {

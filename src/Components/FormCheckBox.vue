@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'FormCheckBox',
+  name: 'FormCheckbox',
   props: ['title', 'type', 'value', 'name', 'error'],
   mounted: function () {
     let vm = this

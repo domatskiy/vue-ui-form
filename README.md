@@ -1,6 +1,6 @@
 ## install
 
-npm i vue-form-interface
+npm i vue-ui-form
 
 ## use
 
@@ -26,8 +26,8 @@ npm i vue-form-interface
 example app
 
 ```js
-import formInterface from 'vue-form-interface'
-Vue.use(formInterface)
+import FormUi from 'vue-ui-form'
+Vue.use(FormUi)
  
 export default {
   name: 'app',

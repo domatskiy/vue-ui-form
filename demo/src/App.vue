@@ -1,11 +1,11 @@
 <template>
     <div id="app">
         <form-interface
-			title="form-interface DEMO"
+			title="form interface DEMO page"
 			:data="formData"
 			:errors="formErrors"
 			:processing="formProcessing"
-			@save="saveForm" 
+			@save="saveForm"
 			@apply="applyForm"
 			@cancel="cancelForm">
 

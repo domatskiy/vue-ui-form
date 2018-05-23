@@ -1,15 +1,15 @@
 <template>
     <div class="form__group form__group--text" :class="className">
         <label><span>{{title}}</span></label>
-        <input :type="type" v-on:focus="setActive(1)" v-on:blur="setActive(0)" :value="val" :name="name"/>
-        <span class="form__group__errors">{{error}}</span>
+        <input :type="type" v-on:focus="setActive(1)" v-on:blur="setActive(0)" :value="val"/>
+        <span class="form__group__errors" v-if="error">{{error}}</span>
     </div>
 </template>
 
 <script>
 export default {
   name: 'FormInput',
-  props: ['title', 'type', 'value', 'name', 'error'],
+  props: ['title', 'type', 'value', 'error'],
   data () {
     return {
       focus_active: 0

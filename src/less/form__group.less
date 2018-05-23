@@ -1,12 +1,15 @@
 .form__group {
 
   @color-error: rgba(192, 31, 0, 0.85);
+  @color-border: #e1e1e1;
+
 
   width: 100%;
   display: inline-block;
   position: relative;
   padding: 5px 10px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 
   label{
     display: inline-block;
@@ -36,7 +39,7 @@
 
   &--text, &--select{
     padding: 3px 0 0;
-    border: 1px solid #ccc;
+    border: 1px solid @color-border;
     background-color: #fff;
     border-radius: 4px;
 
@@ -66,7 +69,7 @@
 
   &--view{
     padding: 3px 15px 0;
-    border: 1px solid #ccc;
+    border: 1px solid @color-border;
     background-color: #f4f4f4;
     border-radius: 4px;
 
@@ -115,7 +118,7 @@
 
   &--view-files{
     padding: 3px 10px 3px;
-    border: 1px solid #ccc;
+    border: 1px solid @color-border;
     background-color: #fff;
     border-radius: 4px;
     box-sizing: border-box;
@@ -129,7 +132,7 @@
   &--file {
 
     padding: 3px 10px 3px;
-    border: 1px solid #ccc;
+    border: 1px solid @color-border;
     background-color: #fff;
     border-radius: 4px;
     box-sizing: border-box;

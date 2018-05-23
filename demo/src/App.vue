@@ -11,6 +11,7 @@
 
 			<form-view title="id" v-model="formData.id"></form-view>
 			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
+			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
 			<form-input title="name" v-model="formData.name"></form-input>
 			<form-text title="name" v-model="formData.name"></form-text>
 
@@ -84,7 +85,7 @@
   .form {
 
     max-width: 700px;
-	background-color: #ececec;
+	background-color: #f1f1f1;
 	padding: 15px 15px;
 
 	&--error{}

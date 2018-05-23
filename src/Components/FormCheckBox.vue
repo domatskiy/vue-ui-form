@@ -1,8 +1,8 @@
 <template>
     <div class="form__group form__group--checkbox">
-        <label><span>{{title}}</span></label>
+        <label v-if="title"><span>{{title}}</span></label>
         <div @click="change" :class="checked === true ? 'checked' : 'no'"></div>
-        <span class="form__group__errors">{{error}}</span>
+        <span class="form__group__errors" v-if="error">{{error}}</span>
     </div>
 </template>
 
@@ -14,10 +14,12 @@ export default {
       type: String,
       default: ''
     },
+    value: {
+      default: 0
+    },
     error: {
       default: ''
-    },
-    value: {}
+    }
   },
   data () {
     return {
@@ -27,20 +29,18 @@ export default {
   methods: {
     change: function () {
       this.val = !this.val
+      this.$emit('input', this.val ? 1 : 0)
     }
   },
   mounted: function () {
-    console.info('mounted this.value', this.value)
     this.val = this.value
+    this.$watch('value', function (v) {
+      this.val = this.value
+    })
   },
   computed: {
     checked () {
       return this.val === 1 || this.val === '1' || this.val === true || this.val === 'true'
-    }
-  },
-  watch: {
-    val: function () {
-      this.$emit('input', this.val ? 1 : 0)
     }
   }
 }

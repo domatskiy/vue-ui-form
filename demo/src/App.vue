@@ -16,9 +16,7 @@
 			<form-text title="name" v-model="formData.name"></form-text>
 
 			<form-select title="select one" v-model="formData.selectOne" :list="opt"></form-select>
-
-			<form-selectpicker title="select one" v-model="formData.selectOne" :list="opt"></form-selectpicker>
-			<form-selectpicker title="select multi" v-model="formData.selectMulti" :multi="true" :list="opt"></form-selectpicker>
+			<form-select title="select multi" v-model="formData.selectMulti" :list="opt" :multi="true"></form-select>
 
 			<form-file title="new images" v-model="formData.image"></form-file>
 			<form-view-files title="images" v-model="formData.image_view"></form-view-files>

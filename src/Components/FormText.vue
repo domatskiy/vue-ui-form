@@ -1,7 +1,7 @@
 <template>
     <div class="form__group form__group--text" :class="className">
         <label><span>{{title}}</span></label>
-        <textarea :name="name" v-on:focus="setActive(1)" v-on:blur="setActive(0)">{{val}}</textarea>
+        <textarea v-on:focus="setActive(1)" v-on:blur="setActive(0)">{{val}}</textarea>
         <span class="form__group__errors">{{error}}</span>
     </div>
 </template>
@@ -21,10 +21,9 @@ export default {
     }
   },
   mounted: function () {
-    let vm = this
     let textarea = this.$el.querySelector('textarea')
-    textarea.addEventListener('input', function (e) {
-      vm.$emit('input', textarea.value)
+    textarea.addEventListener('input', (e) => {
+      this.$emit('input', textarea.value)
     })
   },
   computed: {

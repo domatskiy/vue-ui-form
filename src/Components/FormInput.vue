@@ -9,7 +9,23 @@
 <script>
 export default {
   name: 'FormInput',
-  props: ['title', 'type', 'value', 'error'],
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    value: {
+      required: false,
+      default: ''
+    },
+    type: {
+      required: false,
+      default: 'text'
+    },
+    error: {
+      required: false,
+    }
+  },
   data () {
     return {
       focus_active: 0

@@ -130,7 +130,7 @@ export default {
     },
     selValue: function ($value, $event) {
       $event.stopPropagation()
-      console.log('selValue', $value)
+      // console.log('selValue', $value)
       if ($value !== null) {
         if(this.multi) {
           let $index = this.values.indexOf($value)
@@ -148,7 +148,7 @@ export default {
       this.close(true)
     },
     setNewValue: function () {
-      console.log('setNewValue, this.value', this.value, Array.isArray(this.value))
+      // console.log('setNewValue, this.value', this.value, Array.isArray(this.value))
       if (!Array.isArray(this.value)) {
         this.values = [this.value + '']
       } else {
@@ -186,7 +186,7 @@ export default {
       this.close(true)
     },
     values: function (newValues) {
-      console.log('changed: values=', newValues, Object.values(newValues), this.list)
+      // console.log('changed: values=', newValues, Object.values(newValues), this.list)
       let text = []
       if (Array.isArray(newValues) && newValues.length > 0) {
 

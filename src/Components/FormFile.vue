@@ -1,21 +1,26 @@
 <template>
     <div class="form__group form__group--file">
-        <label>{{title}}</label>
+        <label><span>{{title}}</span></label>
         <div ref="mainContainer">
             <div style="height: 0; width: 0; overflow: hidden;">
                 <input type="file" :multiple="multi" @change="changeHandler" />
             </div>
-            <div id="output"></div>
             <div v-if="files && typeof files == 'object'" class="file-list">
                 <div v-for="(file, key) in files" class="file-list__item">
-                    <img class="img-pre" :src="files_preview[key]">
-                    <span class="name">{{ file.name }}</span>
-                    <span class="size">[{{ Math.ceil(file.size / 1024) }}Кб]</span>
-                    <a class="remove" v-show="file" @click="removeFile(key)">Удалить</a>
+                    <div class="file-card">
+                        <div class="file-card__img">
+                            <img class="img-pre" :src="files_preview[key]">
+                        </div>
+                        <div class="file-card__info">
+                            <span class="name">{{ file.name }}</span>
+                            <span class="size">size: {{ Math.ceil(file.size / 1024) }}Кб</span>
+                            <a class="remove" v-show="file" @click="removeFile(key)">Удалить</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <a class="btn" @click="chooseFiles()">{{multi ? 'Добавить' : 'Выбрать'}}</a>
         </div>
-        <div class="btn" @click="chooseFiles()">{{multi ? 'Добавить' : 'Выбрать'}}</div>
         <div class="form__group-error" v-if="error">{{error}}</div>
     </div>
 </template>
@@ -156,41 +161,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-    /*@import "../__functions";*/
-
-    .file-list{
-        /*.flex(row, wrap, flex-start);*/
-        margin: 0 -10px;
-
-        &__item{
-            width: 100px;
-            padding: 10px;
-            box-sizing: border-box;
-
-            img{
-              width: 100px;
-              height: auto;
-              max-height: 100px;
-            }
-            .name{
-                display: inline-block;
-                max-width: 100%;
-                max-height: 50px;
-                overflow: hidden;
-            }
-            .size{
-                display: inline-block;
-                width: 100%;
-            }
-            a{color: #365057;}
-        }
-    }
-    .form__group{
-        input[type=color]{
-            width: 50px;
-            padding: 0;
-        }
-    }
-</style>

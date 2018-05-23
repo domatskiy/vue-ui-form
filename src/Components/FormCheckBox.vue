@@ -1,25 +1,46 @@
 <template>
-    <div class="form__group form__group--checkbox form__group--active">
-        <label>{{title}}</label>
-        <input type="checkbox" :value="value" :name="name" :checked="checked"/>
+    <div class="form__group form__group--checkbox">
+        <label><span>{{title}}</span></label>
+        <div @click="change" :class="checked === true ? 'checked' : 'no'"></div>
+        <span class="form__group__errors">{{error}}</span>
     </div>
 </template>
 
 <script>
 export default {
   name: 'FormCheckbox',
-  props: ['title', 'type', 'value', 'name', 'error'],
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    error: {
+      default: ''
+    },
+    value: {}
+  },
+  data () {
+    return {
+      val: false
+    }
+  },
+  methods: {
+    change: function () {
+      this.val = !this.val
+    }
+  },
   mounted: function () {
-    let vm = this
-    let input = this.$el.querySelector('input')
-    input.addEventListener('change', function (e) {
-      console.log('change', input.checked, input.value)
-      vm.$emit('input', input.checked ? 1 : 0)
-    })
+    console.info('mounted this.value', this.value)
+    this.val = this.value
   },
   computed: {
     checked () {
-      return this.value === 1 || this.value === '1' || this.value === true || this.value === 'true'
+      return this.val === 1 || this.val === '1' || this.val === true || this.val === 'true'
+    }
+  },
+  watch: {
+    val: function () {
+      this.$emit('input', this.val ? 1 : 0)
     }
   }
 }

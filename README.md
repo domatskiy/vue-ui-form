@@ -23,7 +23,9 @@ npm i vue-ui-form
 </form-interface>
 ```
 
-example app
+[форма](demo/screenshot/form.png)
+
+### example app
 
 ```js
 import FormUi from 'vue-ui-form'
@@ -87,30 +89,6 @@ style
 
   &__buttons{}
 }
-
-  .form__group {
-     padding-bottom: 10px;
-     margin-bottom: 10px;
-     border-bottom: 1px solid #aaa;
-
-     label {}
-     input {
-	   display: inline-block;
-       width: 100%;
-	 }
-
-    &--checkbox{
-      input{
-        width: auto !important;
-      }
-    }
-
-    &--file {
-
-    }
-  }
 ```
-
-
 
 https://domatskiy.github.io/vue-selectpicker/

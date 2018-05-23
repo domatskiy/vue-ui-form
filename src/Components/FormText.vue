@@ -1,7 +1,7 @@
 <template>
-    <div class="form__group" :class="className">
-        <label>{{title}}</label>
-        <textarea :name="name">{{val}}</textarea>
+    <div class="form__group form__group--text" :class="className">
+        <label><span>{{title}}</span></label>
+        <textarea :name="name" v-on:focus="setActive(1)" v-on:blur="setActive(0)">{{val}}</textarea>
         <span class="form__group__errors">{{error}}</span>
     </div>
 </template>
@@ -10,6 +10,16 @@
 export default {
   name: 'FormText',
   props: ['title', 'value', 'name', 'error'],
+  data () {
+    return {
+      focus_active: 0
+    }
+  },
+  methods: {
+    setActive: function (active) {
+      this.focus_active = active
+    }
+  },
   mounted: function () {
     let vm = this
     let textarea = this.$el.querySelector('textarea')
@@ -20,7 +30,7 @@ export default {
   computed: {
     className () {
       let cl = ''
-      if (this.active) {
+      if (this.focus_active || (this.value !== null && this.value.length > 0)) {
         cl += 'form__group--active'
       }
       if (this.error) {
@@ -34,10 +44,6 @@ export default {
         val = ''
       }
       return val
-    },
-    active () {
-      // console.log('computed active: ', this.value.length > 0,  this.focus_active);
-      return this.focus_active || (this.value != null && this.value.length > 0)
     }
   }
 }

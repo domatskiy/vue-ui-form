@@ -16,11 +16,11 @@
 
 			<form-select title="select one" v-model="formData.selectOne" :list="opt"></form-select>
 
-			{{formData.selectMulti}}
-			<form-select title="select multi" v-model="formData.selectMulti" :multi="true" :list="opt"></form-select>
+			<form-selectpicker title="select one" v-model="formData.selectOne" :list="opt"></form-selectpicker>
+			<form-selectpicker title="select multi" v-model="formData.selectMulti" :multi="true" :list="opt"></form-selectpicker>
 
-			<form-file title="image" v-model="formData.image"></form-file>
-			<form-view-files title="image" v-model="formData.image_view"></form-view-files>
+			<form-file title="new images" v-model="formData.image"></form-file>
+			<form-view-files title="images" v-model="formData.image_view"></form-view-files>
 
 		</form-interface>
 		<br><br>
@@ -32,6 +32,8 @@
     import Vue from 'vue'
     import FormUI from 'plugin'
     Vue.use(FormUI)
+
+    //require('./../../src/less/form__group.less')
 
     // import selectPicker from 'vue-selectpicker'
     // Vue.use(selectPicker)
@@ -57,7 +59,9 @@
             selectOne: 2,
             selectMulti: [3, 4],
             image: null,
-            image_view: null
+            image_view: [
+              'https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopard.jpg'
+			]
 		  },
 	      formErrors: {},
 	      formProcessing: false

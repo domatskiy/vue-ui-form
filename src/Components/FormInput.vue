@@ -1,6 +1,6 @@
 <template>
-    <div class="form__group" :class="className">
-        <label>{{title}}</label>
+    <div class="form__group form__group--text" :class="className">
+        <label><span>{{title}}</span></label>
         <input :type="type" v-on:focus="setActive(1)" v-on:blur="setActive(0)" :value="val" :name="name"/>
         <span class="form__group__errors">{{error}}</span>
     </div>
@@ -10,15 +10,6 @@
 export default {
   name: 'FormInput',
   props: ['title', 'type', 'value', 'name', 'error'],
-  mounted: function () {
-    let vm = this
-    let input = this.$el.querySelector('input')
-
-    input.addEventListener('change', function (e) {
-      vm.$emit('input', input.value)
-    })
-  },
-  watch: {},
   data () {
     return {
       focus_active: 0
@@ -29,10 +20,16 @@ export default {
       this.focus_active = active
     }
   },
+  mounted: function () {
+    let input = this.$el.querySelector('input')
+    input.addEventListener('change', (e) => {
+      this.$emit('input', input.value)
+    })
+  },
   computed: {
     className () {
       let cl = ''
-      if (this.active) {
+      if (this.focus_active || (this.value !== null && this.value.length > 0)) {
         cl += 'form__group--active'
       }
       if (this.error) {
@@ -50,12 +47,9 @@ export default {
         }
       }
       return val
-    },
-    active () {
-      // console.log('computed active: ', this.value.length > 0,  this.focus_active);
-      return this.focus_active || (this.value != null && this.value.length > 0)
     }
-  }
+  },
+  watch: {}
 }
 </script>
 

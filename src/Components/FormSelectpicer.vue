@@ -1,18 +1,25 @@
 <template lang="html">
     <div class="form__group form__group--select" :class="className">
         <label><span>{{title}}</span></label>
-        <select :value="value" @focus="setActive(1)" @blur="setActive(0)" @click="setActive(1)">
-            <option v-if="required === false"></option>
-            <option v-for="(text, val) in list" :value="val" :selected="val == value">{{text}}</option>
-        </select>
+        <selectpicker
+            :value="spVal"
+            :list="list"
+            :multi="multi"
+            :search="search"
+            :placeholder="placeholder"
+            :searchPlaceholder="searchPlaceholder"
+            v-model="spVal">
+        </selectpicker>
         <span class="form__group__errors">{{error}}</span>
     </div>
 </template>
 
 <script>
+import selectpicker from 'vue-selectpicker/src/selectPicker.vue'
+
 export default {
-  name: 'FormSelect',
-  components: {},
+  name: 'FormSelectpicker',
+  components: {selectpicker},
   props: {
     required: {
       type: Boolean,
@@ -40,12 +47,34 @@ export default {
         return false
       }
     },
+    search: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    searchPlaceholder: {
+      type: String,
+      required: false,
+      default: 'Поиск'
+    },
     list: {
       type: Object,
       required: false,
       default: function () {
         return {}
       }
+    },
+    data: {
+      type: Array,
+      required: false,
+      default: function () {
+        return []
+      }
+    },
+    buttons: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     error: {
       default: ''
@@ -56,11 +85,6 @@ export default {
       spVal: null
     }
   },
-  methods: {
-    setActive: function (active) {
-      this.focus_active = active
-    }
-  },
   created: function () {
     if (this.multi === true) {
       this.spVal = Object.values(this.value)
@@ -69,15 +93,14 @@ export default {
     }
   },
   mounted: function () {
-    let select = this.$el.querySelector('select')
-    select.addEventListener('change', (e) => {
-      this.$emit('input', select.value)
+    this.$watch('spVal', ($newValue) => {
+      this.$emit('input', $newValue)
     })
   },
   computed: {
     className () {
       let cl = []
-      if (this.focus_active || (this.value !== null && this.value)) {
+      if (this.focus_active || (this.value !== null && this.value.length > 0)) {
         cl.push('form__group--active')
       }
       if (this.error) {

@@ -1,8 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
 
-console.log('__dirname', __dirname, path.resolve(__dirname, '../dist/index.js'))
-
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -17,6 +15,7 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
+            'less': 'vue-style-loader!css-loader!less-loader',
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
           }
@@ -39,7 +38,7 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'plugin': path.resolve(__dirname, '../dist/index.js')
+      'plugin': path.resolve(__dirname, '../src/index.js')
     }
   },
   devServer: {

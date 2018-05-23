@@ -1,5 +1,5 @@
 <template>
-    <div class="form__group form__group--view form__group--active" v-if="value">
+    <div class="form__group form__group--view" v-if="value">
         <label>{{title}}</label>
         <div>{{value}}</div>
     </div>

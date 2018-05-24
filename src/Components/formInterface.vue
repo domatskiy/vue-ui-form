@@ -11,7 +11,7 @@
         <div class="form__errors">
 			<slot name="errors"></slot>
 			<ul>
-				<li v-for="err in errors"></li>
+				<li v-for="err in errors">{{err}}</li>
 			</ul>
 		</div>
         <div class="form__buttons">

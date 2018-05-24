@@ -11,16 +11,19 @@
 
 			<form-view title="id" v-model="formData.id"></form-view>
 			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
-			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
-			<form-input title="name" v-model="formData.name"></form-input>
-			<form-text title="name" v-model="formData.name"></form-text>
+			<form-checkbox title="active" v-model="formData.active" :error="formErrors.active"></form-checkbox>
+			<form-input title="name" v-model="formData.name" :error="formErrors.name"></form-input>
+			<form-input title="sort" v-model="formData.sort" :error="formErrors.sort"></form-input>
+			<form-text title="name" v-model="formData.name" :error="formErrors.name"></form-text>
 
-			<form-select title="select one" v-model="formData.selectOne" :list="opt"></form-select>
+			<form-select title="select one" v-model="formData.selectOne" :list="opt" :error="formErrors.selectOne"></form-select>
+			<form-select title="select two" v-model="formData.selectTwo" :list="opt" :error="formErrors.selectTwo"></form-select>
 			<form-select title="select multi" v-model="formData.selectMulti" :list="opt" :multi="true"></form-select>
 
-			<form-file title="new images" v-model="formData.image"></form-file>
+			<form-file title="new images" v-model="formData.image" :error="formErrors.image"></form-file>
 			<form-view-files title="images" v-model="formData.image_view"></form-view-files>
 
+			<a @click="applyChanges">apply changes</a>
 		</form-interface>
 		<br><br>
 		{{formData}}
@@ -75,6 +78,21 @@
 		},
 		cancelForm: function ($data) {
 		  console.info('cancelForm', $data)
+		},
+        applyChanges: function ($e) {
+          console.log('applyChanges')
+          this.formData.name = 'name changed'
+          this.formData.sort = 500
+          this.formData.selectTwo = 2
+
+          this.formErrors.active = 'error active'
+          this.formErrors.sort = 'error sort'
+          this.formErrors.name = 'error name'
+          this.formErrors.selectOne = 'error selectOne'
+          this.formErrors.selectTwo = 'err 2'
+          this.formErrors.image = 'error image'
+
+          $e.preventDefault()
 		}
       }
     }

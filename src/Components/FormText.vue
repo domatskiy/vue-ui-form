@@ -2,7 +2,7 @@
     <div class="form__group form__group--text" :class="className">
         <label><span>{{title}}</span></label>
         <textarea v-on:focus="setActive(1)" v-on:blur="setActive(0)">{{val}}</textarea>
-        <span class="form__group__errors">{{error}}</span>
+        <span class="form__group__errors" v-if="error">{{error}}</span>
     </div>
 </template>
 
@@ -28,12 +28,12 @@ export default {
   },
   computed: {
     className () {
-      let cl = ''
+      let cl = []
       if (this.focus_active || (this.value !== null && this.value.length > 0)) {
-        cl += 'form__group--active'
+        cl.push('form__group--active')
       }
       if (this.error) {
-        cl += 'form__group--error'
+        cl.push('form__group--error')
       }
       return cl
     },

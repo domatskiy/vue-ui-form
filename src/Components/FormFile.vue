@@ -19,9 +19,12 @@
                     </div>
                 </div>
             </div>
-            <a class="btn" @click="chooseFiles()">{{multi ? 'Добавить' : 'Выбрать'}}</a>
+            <div class="file-buttons">
+                <a class="btn" @click="chooseFiles()">{{multi ? 'Добавить' : 'Выбрать'}}</a>
+            </div>
+
         </div>
-        <div class="form__group-error" v-if="error">{{error}}</div>
+        <span class="form__group__errors" v-if="error">{{error}}</span>
     </div>
 </template>
 

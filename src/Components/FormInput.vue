@@ -44,16 +44,17 @@ export default {
   },
   computed: {
     className () {
-      let cl = ''
-      if (this.focus_active || (this.value !== null && this.value.length > 0)) {
-        cl += 'form__group--active'
+      let cl = []
+      if (this.focus_active || (this.value !== null && ((typeof this.value === 'number' && this.value > 0) ||  (typeof this.value === 'string' && this.value.length > 0)))) {
+        cl.push('form__group--active')
       }
       if (this.error) {
-        cl += 'form__group--error'
+        cl.push('form__group--error')
       }
       return cl
     },
     val () {
+      console.log('this.value', this.value)
       let val = this.value
       if (val === undefined || val === null) {
         if (this.type === 'color') {

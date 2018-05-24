@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <span class="form__group__errors">{{error}}</span>
+        <span class="form__group__errors" v-if="error">{{error}}</span>
     </div>
 </template>
 
@@ -130,7 +130,6 @@ export default {
     },
     selValue: function ($value, $event) {
       $event.stopPropagation()
-      // console.log('selValue', $value)
       if ($value !== null) {
         if(this.multi) {
           let $index = this.values.indexOf($value)
@@ -158,6 +157,21 @@ export default {
         }
         this.values = v
       }
+    },
+    calcTitle: function () {
+      // console.log('changed: values=', newValues, Object.values(newValues), this.list)
+      let text = []
+      if (Array.isArray(this.values) && this.values.length > 0) {
+
+        // заполняем текст
+        this.values.forEach((val) => {
+          if (this.list.hasOwnProperty(val)) {
+            text.push(this.list[val])
+          }
+        })
+      }
+
+      this.value_text = text.length < 4 ? text.join(', ') : 'выбрано ' + text.length
     }
   },
   computed: {
@@ -184,21 +198,10 @@ export default {
       // console.log('changed: value=', newValue)
       this.setNewValue()
       this.close(true)
+      this.calcTitle()
     },
     values: function (newValues) {
-      // console.log('changed: values=', newValues, Object.values(newValues), this.list)
-      let text = []
-      if (Array.isArray(newValues) && newValues.length > 0) {
-
-        // заполняем текст
-        newValues.forEach((val) => {
-          if (this.list.hasOwnProperty(val)) {
-            text.push(this.list[val])
-          }
-        })
-      }
-
-      this.value_text = text.length < 4 ? text.join(', ') : 'выбрано ' + text.length
+      this.calcTitle()
     }
   }
 }

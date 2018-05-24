@@ -256,16 +256,42 @@
 
 
   &--view-files{
-    padding: 3px 10px 3px;
+
+    padding: 3px 0px 3px;
     border: 1px solid @color-border;
     background-color: #fff;
     border-radius: 4px;
     box-sizing: border-box;
 
-      img{
-          width: 100%;
-          max-width: 400px;
+    label{
+      margin: 0;
+      padding: 0 15px;
+      padding-bottom: 1px;
+      z-index: 10;
+      font-size: 14px;
+
+      span{
+        position: absolute;
+        top: -2px;
+        font-size: 18px;
+        transition: top 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
       }
+    }
+
+    .files{
+      padding: 0 15px;
+      box-sizing: border-box;
+      width: 100%;
+
+      img{
+        width: 100%;
+        max-width: 400px;
+      }
+
+    }
+
+
+
   }
 
   &--file {
@@ -291,7 +317,7 @@
 
     .file-list{
 
-      margin: 0 10px 15px;
+      margin: 10px 5px 0;
       box-sizing: border-box;
       width: 100%;
 
@@ -361,7 +387,7 @@
     }
 
     .file-buttons{
-      padding: 15px 0 0 15px;
+      padding: 15px 0 5px 15px;
       box-sizing: border-box;
       width: 100%;
 

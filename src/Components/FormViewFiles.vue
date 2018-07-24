@@ -1,5 +1,5 @@
 <template>
-    <div class="form__group form__group--view-files" v-if="value">
+    <div class="form__group form__group--view-files" v-if="value" :class="className">
         <label v-if="title"><span>{{title}}</span></label>
         <div class="files" v-if="Array.isArray(value)">
             <div class="files__item" v-for="(file, key) in value">
@@ -12,7 +12,7 @@
                 <img :src="value"/>
             </div>
         </div>
-        <span class="form__group__errors" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="error">{{error}}</span>
     </div>
 </template>
 
@@ -21,7 +21,14 @@ import formFieldMixin from './FormFieldMixin'
 
 export default {
   name: 'FormViewFiles',
-  mixins: [formFieldMixin]
+  mixins: [formFieldMixin],
+  watch: {
+    /*
+    focus_active: function () {
+      this.focus_active =
+    }
+    */
+  }
 }
 </script>
 

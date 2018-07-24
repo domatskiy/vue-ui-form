@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <span class="form__group__errors" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="error">{{error}}</span>
     </div>
 </template>
 
@@ -198,6 +198,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .form__group{
+
     .select{
 
         @padding-h: 10px;
@@ -233,7 +234,7 @@ export default {
                 display: inline-block;
                 position: absolute;
                 top: 45%; right: 10px;
-                margin: -4px 0 0 0;
+                margin: -9px 0 0 0;
                 width: 15px;
                 height: 15px;
                 background-repeat: no-repeat;

@@ -3,13 +3,13 @@
   @color-error: rgba(192, 31, 0, 0.85);
   @color-border: #d1d1d1;
 
-
   width: 100%;
   display: inline-block;
   position: relative;
-  padding: 5px 10px;
+  padding: 5px 10px 10px;
   box-sizing: border-box;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #aaa !important;
 
   label{
     display: inline-block;
@@ -17,7 +17,7 @@
     box-sizing: border-box;
     font-size: 14px;
     width: 100%;
-    color: #515151;
+    color: #919191;
     margin: 0;
     padding-bottom: 5px;
   }
@@ -33,7 +33,7 @@
       }
   }
 
-  &__errors{
+  &-error{
     display: inline-block;
     width: 100%;
     color: @color-error;
@@ -93,12 +93,19 @@
     }
   }
 
+  &--select{
+    label{
+      top: 2px;
+    }
+  }
+
   &--active&--text, &--active&--select{
 
     label{
       span{
         top: -10px;
         font-size: 14px;
+        color: #4c4c4c;
       }
     }
 
@@ -136,12 +143,14 @@
     label{
       margin: 0;
       padding: 0 15px;
-      padding-bottom: 1px;
       z-index: 10;
       font-size: 14px;
+      top: 0;
+      padding-top: 5px;
+      padding-bottom: 7px;
 
       span{
-        position: absolute;
+        position: relative;
         top: -2px;
         font-size: 18px;
         transition: top 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
@@ -155,12 +164,10 @@
 
       img{
         width: 100%;
-        max-width: 400px;
+        max-width: 200px;
       }
 
     }
-
-
 
   }
 
@@ -271,7 +278,8 @@
 
   &--checkbox{
 
-    border: none;
+    padding: 0;
+    border: none !important;
 
     [type="checkbox"]{
         position: absolute;

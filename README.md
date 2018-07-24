@@ -28,7 +28,7 @@ npm i vue-ui-form
 </form-interface>
 ```
 
-[форма](demo/screenshot/form.png)
+![форма](demo/screenshot/form-demo.gif)
 
 ### example app
 

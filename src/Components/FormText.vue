@@ -2,9 +2,13 @@
     <div class="form__group form__group--text" :class="className">
         <label><span>{{title}}</span></label>
         <div>
-            <textarea v-on:focus="setActive(1)" v-on:blur="setActive(0)">{{val}}</textarea>
+            <textarea
+                :disabled="disabled"
+                :style="{minHeight: minHeight + 'px'}"
+                v-on:focus="setActive(1)"
+                v-on:blur="setActive(0)">{{val}}</textarea>
         </div>
-        <span class="form__group__errors" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="error">{{error}}</span>
     </div>
 </template>
 
@@ -14,6 +18,12 @@ import formFieldMixin from './FormFieldMixin'
 export default {
   name: 'FormText',
   mixins: [formFieldMixin],
+  props: {
+    minHeight: {
+      type: Number,
+      default: 100
+    }
+  },
   mounted: function () {
     let textarea = this.$el.querySelector('textarea')
     textarea.addEventListener('input', (e) => {

@@ -2,9 +2,14 @@
     <div class="form__group form__group--text" :class="className">
         <label><span>{{title}}</span></label>
         <div>
-            <input :type="type" v-on:focus="setActive(1)" v-on:blur="setActive(0)" :value="val"/>
+            <input
+                :type="type"
+                :disabled="disabled"
+                v-on:focus="setActive(1)"
+                v-on:blur="setActive(0)"
+                :value="val"/>
         </div>
-        <span class="errors" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="error">{{error}}</span>
     </div>
 </template>
 

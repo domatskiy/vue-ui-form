@@ -21,13 +21,14 @@
 				v-for="button in buttons"
 				:class="[buttonsClass, button.code, button.class, (button.def === true ? (button.class ? button.class + '--def' : 'def') : null)]"
 				:disabled="processing === true"
-				@click="buttonClick(button.code, $event)">{{button.name}}</button>
+				@click="buttonClick(button.event, $event)">{{button.name}}</button>
 		</div>
     </form>
 </template>
 
 <script>
 import FormButton from './../Classes/FormButton'
+import formFieldBus from './../formFieldBus'
 
 export default {
   name: 'FormInterface',
@@ -37,7 +38,7 @@ export default {
       required: false,
       default: ''
     },
-	buttons: {
+    buttons: {
       type: Array,
       required: false,
       default: function () {
@@ -45,7 +46,7 @@ export default {
           new FormButton('save', 'Сохранить', null, true),
           new FormButton('apply', 'Применить'),
           new FormButton('cancel', 'Отмена')
-		]
+        ]
       }
     },
     buttonsClass: {
@@ -53,7 +54,7 @@ export default {
       required: false,
       default: ''
     },
-	data: {
+    data: {
       type: Object,
       required: false,
       default: function () {
@@ -61,18 +62,18 @@ export default {
       }
     },
     errors: {
-	  required: false,
+      required: false,
       default: function () {
         return {}
       }
-	},
-	processing: {
-	  type: Boolean,
+    },
+    processing: {
+      type: Boolean,
       required: false,
       default: function () {
         return false
-	  }
-	}
+      }
+    }
   },
   data () {
     return {}
@@ -84,36 +85,54 @@ export default {
       this.buttons.forEach($button => {
         if ($button.def === true) {
           this.$emit($button.event, this.data)
-		}
+        }
       })
-	},
-    buttonClick: function ($code, $event) {
+    },
+    buttonClick: function ($ecode, $event) {
       $event.preventDefault()
       $event.stopPropagation()
-      this.$emit($code, this.data)
-	}
+      if (typeof $ecode === 'string') {
+        this.$emit($ecode, this.data)
+      }
+    }
   },
   computed: {
-	formClass: function () {
-		let classes = []
+    formClass: function () {
+      let classes = []
 
-		if (Array.isArray(this.errors) && this.errors.length > 0) {
-			classes.push('form--error');
-		} else if (typeof this.errors === 'object' && Object.keys(this.errors).length > 0) {
-            classes.push('form--error');
-		}
+      if (Array.isArray(this.errors) && this.errors.length > 0) {
+        classes.push('form--error')
+      } else if (typeof this.errors === 'object' && Object.keys(this.errors).length > 0) {
+        classes.push('form--error')
+      }
 
-		if (this.processing) {
-			classes.push('form--processing');
-		}
-		if (this.success) {
-			classes.push('form--success');
-		}
-		return classes.join(' ')
-	}
+      if (this.processing) {
+        classes.push('form--processing')
+      }
+
+      if (this.success) {
+        classes.push('form--success')
+      }
+      return classes.join(' ')
+    }
+  },
+  watch: {
+    errors: function ($errors) {
+      if (Array.isArray($errors)) {
+        $errors.forEach(($err) => {
+          formFieldBus.$emit('errors', $err)
+        })
+      } else if (typeof $errors === 'object') {
+        Object.keys($errors).map((key) => {
+          $errors[key].forEach(($err) => {
+            formFieldBus.$emit('error', key, $err)
+          })
+        })
+      }
+    },
+    processing: function ($processing) {
+      formFieldBus.$emit('form-interface-processing', $processing)
+    }
   }
 }
 </script>
-<style lang="less">
-	@import "../less/form__group";
-</style>

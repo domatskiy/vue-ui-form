@@ -2,7 +2,7 @@
     <div class="form__group form__group--checkbox">
         <label v-if="title"><span>{{title}}</span></label>
         <div @click="change" :class="checked === true ? 'checked' : 'no'"></div>
-        <span class="form__group__errors" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="error">{{error}}</span>
     </div>
 </template>
 

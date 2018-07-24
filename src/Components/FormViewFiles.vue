@@ -12,15 +12,16 @@
                 <img :src="value"/>
             </div>
         </div>
+        <span class="form__group__errors" v-if="error">{{error}}</span>
     </div>
 </template>
 
 <script>
+import formFieldMixin from './FormFieldMixin'
+
 export default {
   name: 'FormViewFiles',
-  props: ['title', 'value'],
-  mounted: function () {},
-  computed: {}
+  mixins: [formFieldMixin]
 }
 </script>
 

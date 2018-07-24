@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const formSelectBus = new Vue({
+const formFieldBus = new Vue({
   data () {
     return {
       body_click_handler: null
@@ -17,4 +17,4 @@ const formSelectBus = new Vue({
   }
 })
 
-export default formSelectBus
+export default formFieldBus

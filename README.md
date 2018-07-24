@@ -13,13 +13,18 @@ npm i vue-ui-form
     @save="saveForm" 
     @apply="applyForm"
     @cancel="cancelForm">
+    
+    <div slot="desc_before">description before form</div>
+    <div slot="desc_after">description after form</div>
     <div slot="processing">Sending :)</div>
+    
     <form-view title="id" v-model="formData.id"></form-view>
     <form-checkbox title="active" v-model="formData.active"></form-checkbox>
     <form-input title="name" v-model="formData.name"></form-input>
     <form-text title="name" v-model="formData.name"></form-text>
     <form-file title="image" v-model="formData.image"></form-file>
     <form-view-file title="image" v-model="formData.image_view"></form-view-file>
+
 </form-interface>
 ```
 

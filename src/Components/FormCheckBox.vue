@@ -7,18 +7,14 @@
 </template>
 
 <script>
+import formFieldMixin from './FormFieldMixin'
+
 export default {
   name: 'FormCheckbox',
+  mixins: [formFieldMixin],
   props: {
-    title: {
-      type: String,
-      default: ''
-    },
     value: {
       default: 0
-    },
-    error: {
-      default: ''
     }
   },
   data () {
@@ -45,12 +41,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-    .form__group{
-        input[type=color]{
-            width: 50px;
-            padding: 0;
-        }
-    }
-</style>

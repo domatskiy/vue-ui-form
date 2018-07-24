@@ -12,7 +12,7 @@
                             <img class="img-pre" :src="files_preview[key]">
                         </div>
                         <div class="file-card__info">
-                            <span class="name">{{ file.name }}</span>
+                            <span class="name" v-if="fileName === true">{{ file.name }}</span>
                             <span class="size">size: {{ Math.ceil(file.size / 1024) }}Кб</span>
                             <a class="remove" v-show="file" @click="removeFile(key)">Удалить</a>
                         </div>
@@ -29,29 +29,23 @@
 </template>
 
 <script>
+import formFieldMixin from './FormFieldMixin'
+
 export default {
   name: 'FormFile',
+  mixins: [formFieldMixin],
   props: {
-    title: {
-      type: String,
-      default: ''
+    fileName: {
+      type: Boolean,
+      defaul: function () {
+        return false
+      }
     },
     multiple: {
       type: Boolean,
       default: function () {
         return false
       }
-    },
-    name: {
-      type: String,
-      default: ''
-    },
-    error: {
-      type: String,
-      default: ''
-    },
-    value: {
-      // type: FileList// File FileList
     }
   },
   data: function () {
@@ -65,7 +59,6 @@ export default {
   },
   methods: {
     changeHandler: function (e) {
-      let __this = this
       let files = e.target.files || e.dataTransfer.files
       console.log('changeHandler:', files)
       if (!files.length) {
@@ -79,18 +72,26 @@ export default {
         console.log(file, file.type)
         if (file instanceof File && file.type.match('image.*')) {
           var reader = new FileReader()
-          reader.onload = (function (theFile) {
+          reader.onload = ((theFile) => {
             return function (e) {
-              if (__this.is_multi) {
-                __this.files.push(theFile)
-                __this.files_preview.push(e.target.result)
+              if (this.is_multi) {
+                this.files.push(theFile)
+                this.files_preview.push(e.target.result)
               } else {
-                __this.files = [theFile]
-                __this.files_preview = [e.target.result]
+                this.files = [theFile]
+                this.files_preview = [e.target.result]
               }
             }
           })(file)
           reader.readAsDataURL(file)
+        } else {
+          /* if (this.is_multi) {
+            this.files.push('')
+            this.files_preview.push('')
+          } else {
+            this.files = ['']
+            this.files_preview = ['']
+          } */
         }
       }
       console.log('file ... ok')

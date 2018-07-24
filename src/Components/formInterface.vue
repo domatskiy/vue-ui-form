@@ -4,7 +4,7 @@
 			<slot name="processing">Sending ...</slot>
 		</div>
         <div class="form__title" v-if="title">{{title}}</div>
-		<slot name="desc"></slot>
+		<slot name="desc_before"></slot>
         <div class="form__body">
 			<slot></slot>
 		</div>
@@ -14,6 +14,7 @@
 				<li v-for="err in errors">{{err}}</li>
 			</ul>
 		</div>
+		<slot name="desc_after"></slot>
         <div class="form__buttons">
 			<button
 				type="button"
@@ -82,7 +83,7 @@ export default {
       $event.stopPropagation()
       this.buttons.forEach($button => {
         if ($button.def === true) {
-          this.$emit($button.code, this.data)
+          this.$emit($button.event, this.data)
 		}
       })
 	},

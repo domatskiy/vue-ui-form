@@ -9,7 +9,9 @@
                 v-on:blur="setActive(0)"
                 :value="val"/>
         </div>
-        <span class="form__group-error" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="errors.length > 0">
+            <div v-for="err in errors">{{err}}</div>
+        </span>
     </div>
 </template>
 

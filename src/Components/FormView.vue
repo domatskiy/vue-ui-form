@@ -2,7 +2,9 @@
     <div class="form__group form__group--view" v-if="value" :class="className">
         <label>{{title}}</label>
         <div v-html="value"></div>
-        <span class="form__group-error" v-if="error">{{error}}</span>
+        <span class="form__group-error" v-if="errors.length > 0">
+            <div v-for="err in errors">{{err}}</div>
+        </span>
     </div>
 </template>
 

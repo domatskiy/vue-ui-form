@@ -7,6 +7,10 @@ export default {
       type: String,
       default: ''
     },
+    errorCode: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       required: false,
@@ -18,7 +22,6 @@ export default {
       required: false
     },
     error: {
-      type: String,
       required: false,
       default: ''
     }
@@ -26,6 +29,7 @@ export default {
   data () {
     return {
       focus_active: 0,
+      errorEvent: [],
       processing: false
     }
   },
@@ -35,6 +39,21 @@ export default {
     }
   },
   computed: {
+    errors: function () {
+      let err = []
+      if (this.error) {
+        err.push(this.error)
+      } else {
+        if (Array.isArray(this.errorEvent)) {
+          this.errorEvent.forEach((err) => {
+            err.push(err)
+          })
+        } else if (typeof this.errorEvent === 'string') {
+          err.push(this.errorEvent)
+        }
+      }
+      return err
+    },
     className () {
       let cl = []
       let hasVal = false
@@ -44,8 +63,8 @@ export default {
       }
 
       if (this.value !== null) {
-        console.log('this.value', typeof this.value, this.value)
-        if (typeof this.value === 'number' && this.value > 0) {
+        // console.log('this.value', typeof this.value, this.value)
+        if (typeof this.value === 'number' && this.value !== null) {
           hasVal = true
         } else if (typeof this.value === 'string' && this.value.length > 0) {
           hasVal = true
@@ -76,10 +95,13 @@ export default {
       this.processing = $processing
     })
     formFieldBus.$on('errors', ($errors) => {
-      console.warn('form errors', $errors)
+      // console.warn('form errors: ', $errors)
     })
     formFieldBus.$on('error', ($field, $error) => {
-      console.warn('field error', $field, $error)
+      if ($field === this.errorCode) {
+        // console.warn('field error: ', $field, ', message=', $error, this)
+        this.errorEvent = $error
+      }
     })
   }
 }

@@ -9,10 +9,7 @@
 			<slot></slot>
 		</div>
         <div class="form__errors">
-			<slot name="errors"></slot>
-			<ul>
-				<li v-for="err in errors">{{err}}</li>
-			</ul>
+
 		</div>
 		<slot name="desc_after"></slot>
         <div class="form__buttons">
@@ -58,10 +55,11 @@ export default {
       type: Object,
       required: false,
       default: function () {
-        return {}
+        return null
       }
     },
     errors: {
+      type: Object,
       required: false,
       default: function () {
         return {}
@@ -78,6 +76,7 @@ export default {
   data () {
     return {}
   },
+  mounted: function () {},
   methods: {
     submitForm: function ($event) {
       $event.preventDefault()
@@ -99,10 +98,10 @@ export default {
   computed: {
     formClass: function () {
       let classes = []
-
-      if (Array.isArray(this.errors) && this.errors.length > 0) {
+      // console.log('formClass: this.errors', this.errors)
+      if (Array.isArray(this.err) && this.err.length > 0) {
         classes.push('form--error')
-      } else if (typeof this.errors === 'object' && Object.keys(this.errors).length > 0) {
+      } else if (typeof this.err === 'object' && Object.keys(this.err).length > 0) {
         classes.push('form--error')
       }
 
@@ -117,20 +116,33 @@ export default {
     }
   },
   watch: {
-    errors: function ($errors) {
-      if (Array.isArray($errors)) {
-        $errors.forEach(($err) => {
-          formFieldBus.$emit('errors', $err)
-        })
-      } else if (typeof $errors === 'object') {
-        Object.keys($errors).map((key) => {
-          $errors[key].forEach(($err) => {
-            formFieldBus.$emit('error', key, $err)
+    errors: {
+      handler: function ($errors, oldVal) {
+        // console.warn('errors >>>>>>>>>>>>>>>>>>>>> ', $errors)
+        if ($errors === null) {
+          return
+        }
+        if (Array.isArray($errors)) {
+          $errors.forEach(($err) => {
+            formFieldBus.$emit('errors', $err)
           })
-        })
-      }
+        } else if (typeof $errors === 'object') {
+          Object.keys($errors).map((key) => {
+            // console.warn('', key, $errors[key])
+            if (Array.isArray($errors[key])) {
+              $errors[key].forEach(($err) => {
+                formFieldBus.$emit('error', key, $err)
+              })
+            } else if (typeof $errors[key] === 'string') {
+              formFieldBus.$emit('error', key, $errors[key])
+            }
+          })
+        }
+      },
+      deep: true
     },
     processing: function ($processing) {
+      console.log('change processing')
       formFieldBus.$emit('form-interface-processing', $processing)
     }
   }

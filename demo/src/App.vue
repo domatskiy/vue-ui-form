@@ -3,23 +3,23 @@
         <form-interface
 			title="DEMO form"
 			:data="formData"
-			:errors="formErrors"
 			:processing="formProcessing"
+			:errors="formErrors"
 			@save="saveForm"
 			@apply="applyForm"
 			@cancel="cancelForm">
 
 			<form-view title="id" v-model="formData.id"></form-view>
-			<form-checkbox title="active" v-model="formData.active"></form-checkbox>
-			<form-input title="name" v-model="formData.name" :error="formErrors.name"></form-input>
-			<form-input title="sort" v-model="formData.sort" :error="formErrors.sort"></form-input>
-			<form-text title="name" v-model="formData.name" :error="formErrors.name"></form-text>
+			<form-checkbox title="active" v-model="formData.active" error-code="active"></form-checkbox>
+			<form-input title="Full name" v-model="formData.name" error-code="name"></form-input>
+			<form-input title="Sort sort" v-model="formData.sort" error-code="field"></form-input>
+			<form-text title="Text description" v-model="formData.text" error-code="field"></form-text>
 
-			<form-select title="select one" v-model="formData.selectOne" :list="opt" :error="formErrors.selectOne"></form-select>
-			<form-select title="select two" v-model="formData.selectTwo" :list="opt" :error="formErrors.selectTwo"></form-select>
-			<form-select title="select multi" v-model="formData.selectMulti" :list="opt" :multi="true"></form-select>
+			<form-select title="Select one" v-model="formData.selectOne" :list="opt" error-code="selectOne"></form-select>
+			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo"></form-select>
+			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
 
-			<form-file title="new images" v-model="formData.image" :error="formErrors.image"></form-file>
+			<form-file title="new images" v-model="formData.image"></form-file>
 			<form-view-files title="images" v-model="formData.image_view"></form-view-files>
 
 		</form-interface>
@@ -53,6 +53,8 @@ export default {
         id: 1,
         active: 1,
         name: 'test',
+        sort: 0,
+        text: 'text',
         selectOne: 2,
         selectMulti: [3, 4],
         image: null,
@@ -78,19 +80,25 @@ export default {
     },
     applyChanges: function ($e) {
       console.log('applyChanges 0')
-      this.formData.name = 'name changed'
-      this.formData.sort = 500
+      this.formData.name = 'name 2'
+      this.formData.sort += 500
       this.formData.selectTwo = 2
       this.formData.image_view.push('https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopard.jpg')
 
       console.log('applyChanges err 1')
+      this.formErrors = {}
       this.formErrors.active = 'error active'
       this.formErrors.sort = 'error sort'
       this.formErrors.name = 'error name'
+
       console.log('applyChanges err 2')
       this.formErrors.selectOne = 'error selectOne'
       this.formErrors.selectTwo = 'err 2'
       this.formErrors.image = 'error image'
+
+      // console.warn('this.formErrors', this.formErrors)
+
+      // this.formProcessing = true
     }
   }
 }

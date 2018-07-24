@@ -19,7 +19,8 @@
 			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo"></form-select>
 			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
 
-			<form-file title="new images" v-model="formData.image"></form-file>
+			<form-file title="new file" v-model="formData.file" :fileName="true"></form-file>
+			<form-file title="new files" v-model="formData.files" :multiple="true"></form-file>
 			<form-view-files title="images" v-model="formData.image_view"></form-view-files>
 
 		</form-interface>
@@ -52,9 +53,9 @@ export default {
       formData: {
         id: 1,
         active: 1,
-        name: 'test',
+        name: 'test name',
         sort: 0,
-        text: 'text',
+        text: 'text of description or simple text',
         selectOne: 2,
         selectMulti: [3, 4],
         image: null,
@@ -85,70 +86,35 @@ export default {
       this.formData.selectTwo = 2
       this.formData.image_view.push('https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopard.jpg')
 
-      console.log('applyChanges err 1')
-      this.formErrors = {}
-      this.formErrors.active = 'error active'
-      this.formErrors.sort = 'error sort'
-      this.formErrors.name = 'error name'
+      this.formProcessing = true
 
-      console.log('applyChanges err 2')
-      this.formErrors.selectOne = 'error selectOne'
-      this.formErrors.selectTwo = 'err 2'
-      this.formErrors.image = 'error image'
+      setTimeout(() => {
+        this.formProcessing = false
+        console.log('applyChanges err 1')
+        this.formErrors = {}
+        this.formErrors.active = 'error active'
+        this.formErrors.sort = 'error sort'
+        this.formErrors.name = 'error name'
 
-      // console.warn('this.formErrors', this.formErrors)
-
-      // this.formProcessing = true
+        console.log('applyChanges err 2')
+        this.formErrors.selectOne = 'error selectOne'
+        this.formErrors.selectTwo = 'err 2'
+        this.formErrors.image = 'error image'
+      }, 2000)
     }
   }
 }
 </script>
 <style lang="less">
+@import "./../../src/less/form";
 @import "./../../src/less/form__group";
 
-  .form {
-
-    max-width: 700px;
-	background-color: #f1f1f1;
-	padding: 15px 15px;
-
-	&--error{}
-	&--processing{}
-	&--success{}
-
-	&__title{
-	  padding-bottom: 15px;
-	  font-size: 24px;
-	}
-
-	&__body{
-	  padding-bottom: 15px;
-	}
-
-	&__errors{
-	  padding-bottom: 15px;
-	}
-
-	&__buttons{}
-  }
-
   .form__group {
-
-
      label {}
-     input {
-	   display: inline-block;
-       width: 100%;
-	 }
+     input {}
 
-    &--checkbox{
-      input{
-        width: auto !important;
-      }
-    }
+    &--checkbox{}
 
-    &--file {
-
-    }
+    &--file {}
   }
 </style>

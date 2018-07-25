@@ -1,9 +1,9 @@
 <template lang="html">
     <div class="form__group form__group--select" :class="className">
-        <label><span>{{title}}</span></label>
-        <div class="select" @focus="setActive(1)" @blur="setActive(0)" @click="setActive(1)">
+        <label v-if="title"><span v-html="title"></span></label>
+        <div class="select">
             <div class="select__input" @click="toggleSelect">
-                <span>{{value_text}}</span>
+                <span v-html="value_text"></span>
             </div>
             <div class="select__dropdown" v-show="open === true">
                 <div class="list" @wheel="stopScroll" v-if="list.length > 0 || Object.keys(list).length > 0">
@@ -111,7 +111,7 @@ export default {
       if (typeof check !== 'boolean') {
         check = false
       }
-      if (!check || (check && this.multi === false)) {
+      if (typeof this.values !== 'undefined' && (!check || (check && this.multi === false))) {
         this.open = false
         if (this.multi === true) {
           this.$emit('input', this.values)
@@ -134,7 +134,6 @@ export default {
         } else {
           this.values = [$value]
         }
-
       }
       this.close(true)
     },
@@ -151,7 +150,6 @@ export default {
       }
     },
     calcTitle: function () {
-      // console.log('changed: values=', newValues, Object.values(newValues), this.list)
       let text = []
       if (Array.isArray(this.values) && this.values.length > 0) {
 

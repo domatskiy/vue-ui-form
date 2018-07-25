@@ -1,6 +1,6 @@
 <template>
     <div class="form__group form__group--file" :class="className">
-        <label><span>{{title}}</span></label>
+        <label v-if="title"><span v-html="title"></span></label>
         <div ref="mainContainer">
             <div style="height: 0; width: 0; overflow: hidden;">
                 <input

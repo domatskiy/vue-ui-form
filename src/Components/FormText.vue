@@ -1,6 +1,6 @@
 <template>
     <div class="form__group form__group--text" :class="className">
-        <label><span>{{title}}</span></label>
+        <label v-if="title"><span v-html="title"></span></label>
         <div>
             <textarea
                 :disabled="disabled"

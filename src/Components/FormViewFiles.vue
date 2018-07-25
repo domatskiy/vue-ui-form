@@ -1,6 +1,6 @@
 <template>
     <div class="form__group form__group--view-files" v-if="value" :class="className">
-        <label v-if="title"><span>{{title}}</span></label>
+        <label v-if="title"><span v-html="title"></span></label>
         <div class="files" v-if="Array.isArray(value)">
             <div class="files__item" v-for="(file, key) in value">
                 <img :src="file.file" v-if="typeof file == 'object'" :data-key="key">

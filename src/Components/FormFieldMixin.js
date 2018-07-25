@@ -62,8 +62,8 @@ export default {
         hasVal = true
       }
 
-      if (this.value !== null) {
-        // console.log('this.value', typeof this.value, this.value)
+      if (typeof this.value !== 'undefined' && this.value !== null) {
+        console.log('value for ', this.title, typeof this.value, this.value)
         if (typeof this.value === 'number' && this.value !== null) {
           hasVal = true
         } else if (typeof this.value === 'string' && this.value.length > 0) {
@@ -103,5 +103,21 @@ export default {
         this.errorEvent = $error
       }
     })
+  },
+  mounted: function () {
+    let input = this.$el.querySelector('input')
+    if (input) {
+      let label = this.$el.querySelector('label')
+      label.addEventListener('click', () => {
+        input.focus()
+      })
+    }
+    let textarea = this.$el.querySelector('textarea')
+    if (textarea) {
+      let label = this.$el.querySelector('label')
+      label.addEventListener('click', () => {
+        textarea.focus()
+      })
+    }
   }
 }

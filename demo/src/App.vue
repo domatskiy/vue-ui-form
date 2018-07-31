@@ -15,7 +15,7 @@
 			<form-text title="Text description" v-model="formData.text" error-code="field"></form-text>
 
 			<form-select title="Select one" v-model="formData.selectOne" :list="opt" error-code="selectOne"></form-select>
-			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo"></form-select>
+			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo" :required="false"></form-select>
 			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
 
 			<form-file title="new file" v-model="formData.file" :fileName="true"></form-file>

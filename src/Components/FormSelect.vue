@@ -8,11 +8,12 @@
                 </div>
                 <div class="select__dropdown" v-show="open === true">
                     <div class="list" @wheel="stopScroll" v-if="list.length > 0 || Object.keys(list).length > 0">
+                        <div v-if="!required && !multi" @click="selValue(null, $event)" class="list__item list__item--empty">- не выбрано -</div>
                         <div
-                                class="list__item"
-                                :class="values && values.indexOf(val) > -1 ? 'list__item--checked' : ''"
-                                v-for="(text, val) in list"
-                                @click="selValue(val, $event)">
+                            class="list__item"
+                            :class="values && values.indexOf(val) > -1 ? 'list__item--checked' : ''"
+                            v-for="(text, val) in list"
+                            @click="selValue(val, $event)">
                             <span>{{text}}</span>
                         </div>
                     </div>
@@ -72,6 +73,7 @@ export default {
   },
   mounted: function () {
     formFieldBus.$on('close', () => {
+      console.log('close')
       this.close(false)
     })
   },
@@ -83,26 +85,28 @@ export default {
       e.stopPropagation()
     },
     openSelect: function (e) {
+      e.stopPropagation()
+      e.preventDefault()
+      console.log('openSelect')
       formFieldBus.$emit('close', true)
       this.open = true
       formFieldBus.$emit('open', true)
-      e.stopPropagation()
-      e.preventDefault()
     },
     resetSelect: function (e) {
-      this.values = []
-      this.close(false)
       e.stopPropagation()
       e.preventDefault()
+      console.log('resetSelect')
+      this.values = []
+      this.close(false)
     },
     closeSelect: function (e) {
+      console.log('closeSelect')
       e.stopPropagation()
       e.preventDefault()
       this.close(false)
     },
     toggleSelect: function (e) {
-      e.stopPropagation()
-      e.preventDefault()
+      console.log('toggleSelect')
       if (this.open === false) {
         this.openSelect(e)
       } else {
@@ -114,11 +118,12 @@ export default {
         check = false
       }
       if (typeof this.values !== 'undefined' && (!check || (check && this.multi === false))) {
+        console.log('close, check=', check, this.values)
         this.open = false
         if (this.multi === true) {
           this.$emit('input', this.values)
         } else {
-          this.$emit('input', this.values[0])
+          this.$emit('input', this.values.length > 0 ? this.values[0] : null)
         }
       }
     },
@@ -136,11 +141,12 @@ export default {
         } else {
           this.values = [$value]
         }
+      } else if (!this.multi) {
+        this.values = []
       }
       this.close(true)
     },
     setNewValue: function () {
-      // console.log('setNewValue, this.value', this.value, Array.isArray(this.value))
       if (!Array.isArray(this.value)) {
         this.values = [this.value + '']
       } else {
@@ -169,7 +175,8 @@ export default {
   computed: {
     className () {
       let cl = []
-      if (this.focus_active || (this.value !== null && this.value)) {
+      // console.log('className', this.focus_active, this.value)
+      if (this.focus_active || (typeof this.value !== 'undefined' && this.value !== null && this.value)) {
         cl.push('form__field--active')
       }
       if (this.error) {
@@ -179,17 +186,20 @@ export default {
     },
     val () {
       let val = this.value
-      if (val === undefined || val === null) {
+      if (typeof val === 'undefined' || val === null) {
         val = ''
       }
       return val
     }
   },
   watch: {
+    open: function (open) {
+      console.log('open', open)
+    },
     value: function (newValue) {
       // console.log('changed: value=', newValue)
       this.setNewValue()
-      this.close(true)
+      // this.close(true)
       this.calcTitle()
     },
     values: function (newValues) {

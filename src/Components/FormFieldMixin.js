@@ -63,7 +63,6 @@ export default {
       }
 
       if (typeof this.value !== 'undefined' && this.value !== null) {
-        console.log('value for ', this.title, typeof this.value, this.value)
         if (typeof this.value === 'number' && this.value !== null) {
           hasVal = true
         } else if (typeof this.value === 'string' && this.value.length > 0) {

@@ -95,11 +95,11 @@ export default {
       this.processing = $processing
     })
     formFieldBus.$on('errors', ($errors) => {
-      // console.warn('form errors: ', $errors)
+      // clear errors
+      this.errorEvent = []
     })
     formFieldBus.$on('error', ($field, $error) => {
-      if ($field === this.errorCode) {
-        // console.warn('field error: ', $field, ', message=', $error, this)
+      if (this.errorCode && $field === this.errorCode) {
         this.errorEvent = $error
       }
     })

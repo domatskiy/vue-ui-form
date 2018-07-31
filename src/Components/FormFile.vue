@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="file-buttons">
-                <a class="btn" @click="chooseFiles()">{{multi ? 'Добавить' : 'Выбрать'}}</a>
+                <a class="btn" @click="chooseFiles()">{{buttonText ? buttonText : (multi ? 'Добавить' : 'Выбрать')}}</a>
             </div>
 
         </div>
@@ -48,6 +48,11 @@ export default {
   name: 'FormFile',
   mixins: [formFieldMixin],
   props: {
+    buttonText: {
+      type: String,
+      required: false,
+      default: ''
+    },
     fileName: {
       type: Boolean,
       default: function () {
@@ -134,7 +139,6 @@ export default {
   },
   computed: {
     multi () {
-      console.log('multi', this.multiple)
       return this.multiple === true
     }
   },

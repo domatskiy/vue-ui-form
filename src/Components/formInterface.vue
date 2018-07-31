@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import FormButton from './../Classes/FormButton'
+import FormButton from './../FormButton'
 import formFieldBus from './../formFieldBus'
 
 export default {
@@ -120,6 +120,7 @@ export default {
       handler: function ($errors, oldVal) {
         // console.warn('errors >>>>>>>>>>>>>>>>>>>>> ', $errors)
         if ($errors === null) {
+          formFieldBus.$emit('errors', [])
           return
         }
         if (Array.isArray($errors)) {

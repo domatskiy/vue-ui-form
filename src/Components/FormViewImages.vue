@@ -2,17 +2,17 @@
     <div class="form__field form__field--view-files" v-if="value" :class="className">
         <label v-if="title"><span v-html="title"></span></label>
         <div class="field">
-            <div class="view-files" v-if="Array.isArray(value)">
-                <div class="view-files__item" v-for="(file, key) in value">
-                    <a :href="file.file" v-if="typeof file == 'object'" :data-key="key">{{file.name}}</a>
-                    <a :href="file" v-if="typeof file == 'string'" :data-key="key">{{file}}</a>
+            <div class="view-images" v-if="Array.isArray(value)">
+                <div class="view-images__item" v-for="(file, key) in value">
+                    <img :src="file.file" v-if="typeof file == 'object'" :data-key="key">
+                    <img :src="value" v-if="typeof file == 'string'" :data-key="key"/>
                     <div class="remove" @click="remove(file)"></div>
                 </div>
             </div>
-            <div class="files" v-if="typeof value == 'string'">
-                <div class="view-files__item">
-                    <a :src="value">{{value}}</a>
-                    <div class="remove"></div>
+            <div class="view-images" v-if="typeof value == 'string'">
+                <div class="view-images__item">
+                    <img :src="value"/>
+                    <div class="remove" @click="remove(value)"></div>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
 import formFieldMixin from './FormFieldMixin'
 
 export default {
-  name: 'FormViewFiles',
+  name: 'FormViewImages',
   mixins: [formFieldMixin],
   methods: {
     remove: function ($file) {

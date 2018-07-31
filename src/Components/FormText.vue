@@ -1,14 +1,14 @@
 <template>
-    <div class="form__group form__group--text" :class="className">
+    <div class="form__field form__field--text" :class="className">
         <label v-if="title"><span v-html="title"></span></label>
-        <div>
+        <div class="field">
             <textarea
                 :disabled="disabled"
                 :style="{minHeight: minHeight + 'px'}"
                 v-on:focus="setActive(1)"
                 v-on:blur="setActive(0)">{{val}}</textarea>
         </div>
-        <span class="form__group-error" v-if="errors.length > 0">
+        <span class="error" v-if="errors.length > 0">
             <div v-for="err in errors">{{err}}</div>
         </span>
     </div>
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="less">
-    .form__group{
+    .form__field{
         input[type=color]{
             width: 50px;
             padding: 0;

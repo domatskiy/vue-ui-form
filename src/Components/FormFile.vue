@@ -1,7 +1,8 @@
 <template>
-    <div class="form__group form__group--file" :class="className">
+    <div class="form__field form__field--file" :class="className">
         <label v-if="title"><span v-html="title"></span></label>
-        <div ref="mainContainer">
+        <div class="field" ref="mainContainer">
+
             <div style="height: 0; width: 0; overflow: hidden;">
                 <input
                     type="file"
@@ -9,6 +10,7 @@
                     :multiple="multi"
                     @change="changeHandler" />
             </div>
+
             <div v-if="files && Array.isArray(files) && files.length > 0" class="file-list">
                 <div v-for="(file, key) in files" class="file-list__item">
                     <div class="file-card">
@@ -25,17 +27,16 @@
                         <div class="file-card__info">
                             <span class="name" v-if="fileName === true">{{ file.name }}</span>
                             <span class="size">size: {{ Math.ceil(file.size / 1024) }}Кб</span>
-                            <a class="remove" v-show="file" @click="removeFile(key)">Удалить</a>
                         </div>
+                        <a class="remove" v-show="file" @click="removeFile(key)"></a>
                     </div>
                 </div>
             </div>
             <div class="file-buttons">
                 <a class="btn" @click="chooseFiles()">{{buttonText ? buttonText : (multi ? 'Добавить' : 'Выбрать')}}</a>
             </div>
-
         </div>
-        <span class="form__group-error" v-if="errors.length > 0">
+        <span class="error" v-if="errors.length > 0">
             <div v-for="err in errors">{{err}}</div>
         </span>
     </div>
@@ -78,18 +79,19 @@ export default {
   methods: {
     changeHandler: function (e) {
       let files = e.target.files || e.dataTransfer.files
-      // console.log('changeHandler:', files)
+      console.log('changeHandler:', files)
       if (!files.length) {
         return
       }
+      // get files preview
       let __this = this
       for (let file of files) {
-        console.log(file, file.type)
         if (file instanceof File && file.type.match('image.*')) {
+          console.log(file.type, 'create preview')
           var reader = new FileReader()
           reader.onload = ((theFile) => {
             return function (e) {
-              if (this.multi) {
+              if (__this.multiple === true) {
                 __this.files.push(theFile)
                 __this.files_preview.push(e.target.result)
               } else {
@@ -100,12 +102,13 @@ export default {
           })(file)
           reader.readAsDataURL(file)
         } else {
-          if (this.multi) {
+          console.log(file.type, 'add without preview')
+          if (__this.multiple === true) {
             __this.files.push(file)
-            __this.files_preview.push(e.target.result)
+            __this.files_preview.push('')
           } else {
             __this.files = [file]
-            __this.files_preview = [e.target.result]
+            __this.files_preview = ['']
           }
         }
       }
@@ -150,7 +153,8 @@ export default {
       }
     },
     files: function (files) {
-      if (this.multi === true) {
+      console.log('change files, multiple=', this.multiple)
+      if (this.multiple === true) {
         let dt = new DataTransfer()
         for (let file of this.files) {
           dt.items.add(file)

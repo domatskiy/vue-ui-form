@@ -1,6 +1,6 @@
 ## install
 
-npm i vue-ui-form
+npm i vue-ui-form --save-dev
 
 ## use
 
@@ -25,12 +25,14 @@ npm i vue-ui-form
     <form-input title="name" v-model="formData.name" error-сode="name"></form-input>
     <form-text title="description" v-model="formData.description" error-сode="description"></form-text>
     <form-file title="image" v-model="formData.image"></form-file>
-    <form-view-file title="image" v-model="formData.image_view"></form-view-file>
+    
+    <form-view-images title="image" v-model="formData.image_view" @remove="removeImage"></form-view-images>
+    <form-view-files title="image" v-model="formData.image_view" @remove="removeFile"></form-view-files>
 
 </form-interface>
 ```
 
-![форма](demo/screenshot/form-demo1.gif)
+![форма](demo/screenshot/form-demo.gif)
 
 ### form-interface properties
 | Name   | Type  | Required | Default | Description |
@@ -50,13 +52,24 @@ npm i vue-ui-form
 | disabled | Boolean | false  | false |  |
 | error | Array | String | false  |  |  set error |
 
+### form-view-images and form-view-files events
+| Name   | Params  | Description |
+| ------ |:-----:| :---------:|
+| remove | file |  |
+
 
 ### example app
 
 ```js
 import FormUi from 'vue-ui-form'
-import FormButton from 'vue-ui-form//FormButton'
+import FormButton from 'vue-ui-form/FormButton'
 Vue.use(FormUi)
+
+// import 
+@import "./../../src/less/form__field-default";
+
+// or import 
+@import "./../../src/less/form__field-material";
  
 export default {
   name: 'app',
@@ -69,7 +82,9 @@ export default {
       	name: 'test',
       	description: 'test',
         image: null,
-        image_view: null
+        image_view: null,
+        images_remove: [],
+        files_remove: []
       },
       buttons: [
         new FormButton('save', 'Сохранить', null, true),
@@ -89,12 +104,34 @@ export default {
     },
     cancelForm: function ($data) {
       console.info('cancelForm', $data)
-    }
+    },
+    removeImage: function (file) {
+      console.log('removeImage', file)
+      formData.images_remove.push(file)
+    },
+    removeFile: function (file) {
+      console.log('removeFile', file)
+      formData.files_remove.push(file)
+    },
   }
 }
 ```
 
-style
+
+
+### default theme of fields
+```less
+@import "/vue-ui-form/src/less/form__field-default";
+```
+![форма](demo/screenshot/theme-default.png)
+
+### material theme of fields
+```less
+@import "/vue-ui-form/src/less/form__field-material";
+```
+![форма](demo/screenshot/theme-material.png)
+
+### form style
 
 ```less
 .form {
@@ -123,5 +160,3 @@ style
   &__buttons{}
 }
 ```
-
-https://domatskiy.github.io/vue-selectpicker/

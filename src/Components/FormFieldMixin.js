@@ -76,15 +76,15 @@ export default {
       }
 
       if (hasVal === true) {
-        cl.push('form__group--active')
+        cl.push('form__field--active')
       }
 
       if (this.disabled) {
-        cl.push('form__group--disabled')
+        cl.push('form__field--disabled')
       }
 
       if (this.error) {
-        cl.push('form__group--error')
+        cl.push('form__field--error')
       }
 
       return cl

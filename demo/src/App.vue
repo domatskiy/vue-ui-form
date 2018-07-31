@@ -12,7 +12,6 @@
 			<form-view title="id" v-model="formData.id"></form-view>
 			<form-checkbox title="active" v-model="formData.active" error-code="active"></form-checkbox>
 			<form-input title="Full name" v-model="formData.name" error-code="name"></form-input>
-			<form-input title="Sort sort" v-model="formData.sort" error-code="field"></form-input>
 			<form-text title="Text description" v-model="formData.text" error-code="field"></form-text>
 
 			<form-select title="Select one" v-model="formData.selectOne" :list="opt" error-code="selectOne"></form-select>
@@ -21,7 +20,9 @@
 
 			<form-file title="new file" v-model="formData.file" :fileName="true"></form-file>
 			<form-file title="new files" v-model="formData.files" :multiple="true"></form-file>
-			<form-view-files title="images" v-model="formData.image_view"></form-view-files>
+
+			<form-view-images title="images" v-model="formData.image_view" @remove="removeImage"></form-view-images>
+			<form-view-files title="files" v-model="formData.image_view" @remove="removeFile"></form-view-files>
 
 		</form-interface>
 		<br>
@@ -68,6 +69,12 @@ export default {
     }
   },
   methods: {
+    removeImage: function (file) {
+      console.log('removeImage', file)
+	},
+    removeFile: function (file) {
+      console.log('removeFile', file)
+	},
     saveForm: function ($data) {
       console.info('saveForm', $data)
       this.applyChanges()
@@ -106,8 +113,12 @@ export default {
 }
 </script>
 <style lang="less">
+/*
+@import "./../../src/less/form__field-default";
+@import "./../../src/less/form__field-material";
+*/
+@import "./../../src/less/form__field-default";
 @import "./../../src/less/form";
-@import "./../../src/less/form__group";
 
   .form__group {
      label {}

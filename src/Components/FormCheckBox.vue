@@ -1,8 +1,10 @@
 <template>
-    <div class="form__group form__group--checkbox">
+    <div class="form__field form__field--checkbox">
         <label v-if="title"><span v-html="title"></span></label>
-        <div class="checkbox" @click="change" :class="checked === true ? 'checked' : 'no'"></div>
-        <span class="form__group-error" v-if="errors.length > 0">
+        <div class="field">
+            <div class="checkbox" @click="change" :class="checked === true ? 'checked' : 'no'"></div>
+        </div>
+        <span class="error" v-if="errors.length > 0">
             <div v-for="err in errors">{{err}}</div>
         </span>
     </div>

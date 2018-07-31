@@ -1,0 +1,30 @@
+div.checkbox{
+  display: inline-block;
+  position: relative;
+  width: 36px;
+  height: 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  top: 5px;
+  border: 1px solid #e1e1e1;
+  background-color: @field-color-background;
+
+  &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    background-color: #b8b9c4;
+    border-radius: 50%;
+    box-shadow: 0px 2px 3px rgba(0,0,0,0.2);
+  }
+
+  &.checked{
+    &:after{
+      background-color: #fff756;
+      right: 0;
+      transition: right 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s;
+    }
+  }
+}

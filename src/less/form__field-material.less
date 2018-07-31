@@ -1,0 +1,93 @@
+@label-font-size: 14px;
+@label-color: #717171;
+@label-width: 200px;
+
+@field-font-size: 18px;
+@field-color-border: #d1d1d1;
+@field-color-background: #fff;
+@field-height: 36px;
+@field-border-radius: 3px;
+
+@import "./form__field-default";
+
+.form__field {
+
+  display: inline-block;
+  padding: 3px 0 0;
+  border-radius: 4px;
+  background-color: @field-color-background;
+
+  &--text, &--select{
+
+    label{
+      flex-basis: unset;
+      margin: 0;
+      padding: 0 15px;
+      z-index: 10;
+
+      span{
+        position: absolute;
+        top: -2px;
+        font-size: 18px;
+        transition: top 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
+      }
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 5px 15px;
+      font-size: 18px;
+      box-sizing: border-box;
+      border: none !important;
+      border-radius: 4px;
+    }
+
+  }
+
+  &--active&--text, &--active&--select{
+
+    label{
+      span{
+        top: -10px;
+        font-size: 14px;
+        color: #4c4c4c;
+      }
+    }
+  }
+
+  &--view{
+    padding: 3px 15px;
+  }
+
+  &--view-files{
+
+    padding: 3px 0 3px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    label{
+      padding: 0 15px 10px;
+    }
+    .field{
+      padding: 0 15px;
+    }
+  }
+
+  &--file {
+    label{
+      padding: 0 15px;
+    }
+
+    .file-buttons{
+      padding: 5px 15px;
+    }
+  }
+
+  &--checkbox{
+    label{
+      span{}
+    }
+  }
+
+}

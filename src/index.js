@@ -6,6 +6,7 @@ import FormText from './Components/FormText.vue'
 import FormCheckbox from './Components/FormCheckbox.vue'
 import FormFile from './Components/FormFile.vue'
 import FormViewFiles from './Components/FormViewFiles.vue'
+import FormViewImages from './Components/FormViewImages.vue'
 
 const FormUI = {
   install (VueInstance, options) {
@@ -17,7 +18,8 @@ const FormUI = {
       FormText,
       FormCheckbox,
       FormFile,
-      FormViewFiles
+      FormViewFiles,
+      FormViewImages
     ]
 
     components.map(component => {

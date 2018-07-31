@@ -1,6 +1,6 @@
 {
   "name": "vue-ui-form",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "vue form interace",
   "author": "Domatskiy",
   "private": false,
@@ -19,11 +19,11 @@
   "keywords": [
     "vue form",
     "interace",
-    "form ui",
-    "admin",
+    "ui",
     "input",
     "file",
-    "file select"
+    "file select",
+    "admin"
   ],
   "dependencies": {},
   "devDependencies": {

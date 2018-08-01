@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+		{{formData}}
         <form-interface
 			title="DEMO form"
 			:data="formData"
@@ -9,16 +10,35 @@
 			@apply="applyForm"
 			@cancel="cancelForm">
 
-			<form-view title="id" v-model="formData.id"></form-view>
+			<form-view title="id" v-model="formData.id">
+				<div slot="label-hint">help for id</div>
+				<div slot="hint">help for id</div>
+			</form-view>
 			<form-checkbox title="active" v-model="formData.active" error-code="active"></form-checkbox>
-			<form-input title="Full name" v-model="formData.name" error-code="name"></form-input>
-			<form-text title="Text description" v-model="formData.text" error-code="field"></form-text>
+			<form-input
+				title="Full name"
+				:key-up-change="true"
+				:key-up-change-delay="300"
+				v-model="formData.name" error-code="name">
+				<div slot="label-hint">help info</div>
+				<div slot="hint">name of ...</div>
+			</form-input>
+			<form-text title="Text description" v-model="formData.text" error-code="field">
+				<div slot="label-hint">help info</div>
+				<div slot="hint">name of ...</div>
+			</form-text>
 
-			<form-select title="Select one" v-model="formData.selectOne" :list="opt" error-code="selectOne"></form-select>
+			<form-select title="Select one" v-model="formData.selectOne" :list="opt" error-code="selectOne">
+				<div slot="label-hint">help select one</div>
+				<div slot="hint">help of select one</div>
+			</form-select>
 			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo" :required="false"></form-select>
 			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
 
-			<form-file title="new file" v-model="formData.file" :fileName="true"></form-file>
+			<form-file title="new file" v-model="formData.file" :fileName="true">
+				<div slot="label-hint">please select one file</div>
+				<div slot="hint">select one file</div>
+			</form-file>
 			<form-file title="new files" v-model="formData.files" :multiple="true"></form-file>
 
 			<form-view-images title="images" v-model="formData.image_view" @remove="removeImage"></form-view-images>

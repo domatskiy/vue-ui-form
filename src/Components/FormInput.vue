@@ -1,6 +1,11 @@
 <template>
     <div class="form__field form__field--text" :class="className">
-        <label v-if="title"><span v-html="title"></span></label>
+        <label v-if="title">
+            <span v-html="title"></span>
+            <div class="hint">
+                <slot name="label-hint"></slot>
+            </div>
+        </label>
         <div class="field">
             <input
                 :type="type"
@@ -8,6 +13,12 @@
                 v-on:focus="setActive(1)"
                 v-on:blur="setActive(0)"
                 :value="val"/>
+            <div class="hint">
+                <slot name="hint"></slot>
+            </div>
+            <div class="suggestion">
+                <slot name="suggestion"></slot>
+            </div>
         </div>
         <span class="error" v-if="errors.length > 0">
             <div v-for="err in errors">{{err}}</div>
@@ -25,12 +36,59 @@ export default {
     type: {
       required: false,
       default: 'text'
+    },
+    keyUpChange: {
+      type: Boolean,
+      required: false,
+      default: function () {
+        return false
+      }
+    },
+    keyUpChangeDelay: {
+      type: Number,
+      required: false,
+      default: function () {
+        return 1000
+      }
+    },
+    suggestionUrl: {
+      type: String,
+      required: false,
+      default: function () {
+        return ''
+      }
+    },
+    suggestionMinLen: {
+      type: Number,
+      required: false,
+      default: function () {
+        return 2
+      }
+    }
+  },
+  data: function () {
+    return {
+      timer: null
     }
   },
   mounted: function () {
     let input = this.$el.querySelector('input')
     input.addEventListener('change', (e) => {
       this.$emit('input', input.value)
+    })
+    input.addEventListener('keyup', (e) => {
+      if (this.timer !== null) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      if (input.value && input.value.length > this.suggestionMinLen) {
+        this.$emit('suggestion-get', input.value)
+      }
+      if (this.keyUpChange === true) {
+        this.timer = setTimeout(() => {
+          this.$emit('input', input.value)
+        }, this.keyUpChangeDelay)
+      }
     })
   },
   computed: {

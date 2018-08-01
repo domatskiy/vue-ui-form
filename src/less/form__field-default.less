@@ -4,12 +4,18 @@
   @label-font-size: 14px;
   @label-color: #717171;
   @label-width: 200px;
-  
+
   @field-font-size: 18px;
   @field-color-border: #d1d1d1;
   @field-color-background: #fff;
   @field-height: 36px;
   @field-border-radius: 3px;
+
+  @label-hint-font-size: 14px;
+  @label-hint-color: #717171;
+
+  @field-hint-font-size: 12px;
+  @field-hint-color: #919191;
 
   @error-color: rgba(192, 31, 0, 0.85);
 
@@ -41,10 +47,23 @@
       font-size: 16px;
     }
 
+    .hint{
+      padding-top: 2px;
+      font-size: @label-hint-font-size;
+      color: @label-hint-color;
+    }
+
   }
 
   .field {
     flex-basis: ~'calc(100% - @{label-width})';
+
+    .hint{
+      padding-top: 2px;
+      font-size: @field-hint-font-size;
+      color: @field-hint-color;
+    }
+
   }
 
   .select  {

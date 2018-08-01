@@ -1,6 +1,11 @@
 <template>
     <div class="form__field form__field--file" :class="className">
-        <label v-if="title"><span v-html="title"></span></label>
+        <label v-if="title">
+            <span v-html="title"></span>
+            <div class="hint">
+                <slot name="label-hint"></slot>
+            </div>
+        </label>
         <div class="field" ref="mainContainer">
 
             <div style="height: 0; width: 0; overflow: hidden;">
@@ -34,6 +39,9 @@
             </div>
             <div class="file-buttons">
                 <a class="btn" @click="chooseFiles()">{{buttonText ? buttonText : (multi ? 'Добавить' : 'Выбрать')}}</a>
+            </div>
+            <div class="hint">
+                <slot name="hint"></slot>
             </div>
         </div>
         <span class="error" v-if="errors.length > 0">

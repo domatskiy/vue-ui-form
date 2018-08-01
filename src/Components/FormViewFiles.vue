@@ -1,6 +1,11 @@
 <template>
     <div class="form__field form__field--view-files" v-if="value" :class="className">
-        <label v-if="title"><span v-html="title"></span></label>
+        <label v-if="title">
+            <span v-html="title"></span>
+            <div class="hint">
+                <slot name="label-hint"></slot>
+            </div>
+        </label>
         <div class="field">
             <div class="view-files" v-if="Array.isArray(value)">
                 <div class="view-files__item" v-for="(file, key) in value">
@@ -14,6 +19,9 @@
                     <a :src="value">{{value}}</a>
                     <div class="remove"></div>
                 </div>
+            </div>
+            <div class="hint">
+                <slot name="hint"></slot>
             </div>
         </div>
         <span class="error" v-if="errors.length > 0">

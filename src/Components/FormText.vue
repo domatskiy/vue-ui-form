@@ -1,12 +1,20 @@
 <template>
     <div class="form__field form__field--text" :class="className">
-        <label v-if="title"><span v-html="title"></span></label>
+        <label v-if="title">
+            <span v-html="title"></span>
+            <div class="hint">
+                <slot name="label-hint"></slot>
+            </div>
+        </label>
         <div class="field">
             <textarea
                 :disabled="disabled"
                 :style="{minHeight: minHeight + 'px'}"
                 v-on:focus="setActive(1)"
                 v-on:blur="setActive(0)">{{val}}</textarea>
+            <div class="hint">
+                <slot name="hint"></slot>
+            </div>
         </div>
         <span class="error" v-if="errors.length > 0">
             <div v-for="err in errors">{{err}}</div>

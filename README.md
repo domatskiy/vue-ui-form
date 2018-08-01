@@ -21,7 +21,11 @@ npm i vue-ui-form --save-dev
     <div slot="processing">Sending :)</div>
     
     <form-view title="id" v-model="formData.id"></form-view>
-    <form-checkbox title="active" v-model="formData.active" error-сode="active"></form-checkbox>
+    <form-checkbox title="active" v-model="formData.active" error-сode="active">
+        <div slot="label-hint">help info</div>
+        <div slot="hint">name of ...</div>
+    </form-checkbox>
+    
     <form-input title="name" v-model="formData.name" error-сode="name"></form-input>
     <form-text title="description" v-model="formData.description" error-сode="description"></form-text>
     <form-file title="image" v-model="formData.image"></form-file>
@@ -51,6 +55,14 @@ npm i vue-ui-form --save-dev
 | error-сode | String | false  |  |  |
 | disabled | Boolean | false  | false |  |
 | error | Array | String | false  |  |  set error |
+
+### form-input properties
+| Name   | Type  | Required | Default | Description |
+| ------ |:-----:| :---------:| --------|:---------|
+| key-up-change | Boolean | false  | false | allow model changes in the keyup event |
+| key-up-change-delay | Number | false | 500 | delay of model change in the keyup event |
+
+
 
 ### form-view-images and form-view-files events
 | Name   | Params  | Description |

@@ -48,7 +48,7 @@ export default {
       type: Number,
       required: false,
       default: function () {
-        return 1000
+        return 500
       }
     },
     suggestionUrl: {

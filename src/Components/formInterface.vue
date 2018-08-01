@@ -143,7 +143,6 @@ export default {
       deep: true
     },
     processing: function ($processing) {
-      console.log('change processing')
       formFieldBus.$emit('form-interface-processing', $processing)
     }
   }

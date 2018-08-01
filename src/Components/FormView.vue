@@ -9,7 +9,7 @@
         <div class="field">
             <div v-html="value"></div>
             <div class="hint">
-                <slot name="label-hint"></slot>
+                <slot name="hint"></slot>
             </div>
         </div>
         <span class="error" v-if="errors.length > 0">

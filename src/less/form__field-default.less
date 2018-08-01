@@ -11,13 +11,15 @@
   @field-height: 36px;
   @field-border-radius: 3px;
 
-  @label-hint-font-size: 14px;
-  @label-hint-color: #717171;
+  @label-hint-font-size: 12px;
+  @label-hint-color: #919191;
 
   @field-hint-font-size: 12px;
   @field-hint-color: #919191;
 
   @error-color: rgba(192, 31, 0, 0.85);
+
+  @mobile-width: 500px;
 
   display: flex;
   width: 100%;
@@ -26,9 +28,9 @@
   margin-bottom: 15px;
   box-sizing: border-box;
 
-  flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
 
   label{
     display: inline-block;
@@ -56,6 +58,7 @@
   }
 
   .field {
+    max-width: 100%;
     flex-basis: ~'calc(100% - @{label-width})';
 
     .hint{
@@ -88,7 +91,8 @@
 
   textarea{
     padding: 5px 15px 5px;
-    min-height: 200px;
+    min-height: 130px;
+    width: 100%;
     max-width: 100%;
     min-width: 100%;
   }
@@ -109,7 +113,7 @@
     display: inline-block;
     width: 100%;
     color: @error-color;
-    padding: 3px 15px 7px @label-width;
+    padding: 3px 0 0;
     font-size: 14px;
     box-sizing: border-box;
     flex-basis: 100%;
@@ -183,5 +187,28 @@
     label{
       color: @error-color;
     }
+  }
+
+  @media(max-width: @mobile-width){
+
+    display: flex;
+    padding: 0;
+    margin-bottom: 15px;
+
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+
+    label{
+      padding-bottom: 5px;
+
+      flex-basis: 100%;
+    }
+
+    .field {
+      flex-basis: 100%;
+
+    }
+
   }
 }

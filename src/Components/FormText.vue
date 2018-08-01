@@ -8,17 +8,17 @@
         </label>
         <div class="field">
             <textarea
-                :disabled="disabled"
+                :disabled="disabled === true || processing === true"
                 :style="{minHeight: minHeight + 'px'}"
                 v-on:focus="setActive(1)"
                 v-on:blur="setActive(0)">{{val}}</textarea>
             <div class="hint">
                 <slot name="hint"></slot>
             </div>
+            <span class="error" v-if="errors.length > 0">
+                <div v-for="err in errors">{{err}}</div>
+            </span>
         </div>
-        <span class="error" v-if="errors.length > 0">
-            <div v-for="err in errors">{{err}}</div>
-        </span>
     </div>
 </template>
 

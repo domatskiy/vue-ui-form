@@ -23,10 +23,10 @@
             <div class="hint">
                 <slot name="hint"></slot>
             </div>
+            <span class="error" v-if="errors.length > 0">
+                <div v-for="err in errors">{{err}}</div>
+            </span>
         </div>
-        <span class="error" v-if="errors.length > 0">
-            <div v-for="err in errors">{{err}}</div>
-        </span>
     </div>
 </template>
 

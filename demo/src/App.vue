@@ -39,9 +39,15 @@
 				<div slot="label-hint">please select one file</div>
 				<div slot="hint">select one file</div>
 			</form-file>
-			<form-file title="new files" v-model="formData.files" :multiple="true"></form-file>
+			<form-file title="new files" v-model="formData.files" :fileName="true" :multiple="true">
+				<div slot="label-hint">help files info</div>
+				<div slot="hint">files of ...</div>
+			</form-file>
 
-			<form-view-images title="images" v-model="formData.image_view" @remove="removeImage"></form-view-images>
+			<form-view-images title="images" v-model="formData.image_view" @remove="removeImage">
+				<div slot="label-hint">help images info</div>
+				<div slot="hint">images of ...</div>
+			</form-view-images>
 			<form-view-files title="files" v-model="formData.image_view" @remove="removeFile"></form-view-files>
 
 		</form-interface>

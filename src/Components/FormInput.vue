@@ -9,7 +9,7 @@
         <div class="field">
             <input
                 :type="type"
-                :disabled="disabled"
+                :disabled="disabled === true || processing === true"
                 v-on:focus="setActive(1)"
                 v-on:blur="setActive(0)"
                 :value="val"/>
@@ -19,10 +19,10 @@
             <div class="suggestion">
                 <slot name="suggestion"></slot>
             </div>
+            <span class="error" v-if="errors.length > 0">
+                <div v-for="err in errors">{{err}}</div>
+            </span>
         </div>
-        <span class="error" v-if="errors.length > 0">
-            <div v-for="err in errors">{{err}}</div>
-        </span>
     </div>
 </template>
 

@@ -11,7 +11,7 @@
             <div style="height: 0; width: 0; overflow: hidden;">
                 <input
                     type="file"
-                    :disabled="disabled"
+                    :disabled="disabled === true || processing === true"
                     :multiple="multi"
                     @change="changeHandler" />
             </div>
@@ -38,15 +38,15 @@
                 </div>
             </div>
             <div class="file-buttons">
-                <a class="btn" @click="chooseFiles()">{{buttonText ? buttonText : (multi ? 'Добавить' : 'Выбрать')}}</a>
+                <a @click="chooseFiles()">{{buttonText ? buttonText : (multi ? 'Добавить' : 'Выбрать')}}</a>
             </div>
             <div class="hint">
                 <slot name="hint"></slot>
             </div>
+            <span class="error" v-if="errors.length > 0">
+                <div v-for="err in errors">{{err}}</div>
+            </span>
         </div>
-        <span class="error" v-if="errors.length > 0">
-            <div v-for="err in errors">{{err}}</div>
-        </span>
     </div>
 </template>
 

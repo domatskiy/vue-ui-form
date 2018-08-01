@@ -78,11 +78,11 @@ export default {
         cl.push('form__field--active')
       }
 
-      if (this.disabled) {
+      if (this.disabled === true || this.processing === true) {
         cl.push('form__field--disabled')
       }
 
-      if (this.error) {
+      if (this.errors.length > 0) {
         cl.push('form__field--error')
       }
 

@@ -7,7 +7,8 @@
             </div>
         </label>
         <div class="field">
-            <div v-html="value"></div>
+            <div v-html="value" v-if="type === ''"></div>
+            <div v-if="type === 'boolean'">{{ parseInt(value) === 1 || value === 'true' || value === 'y' ? 'Да' : 'Нет'}}</div>
             <div class="hint">
                 <slot name="hint"></slot>
             </div>
@@ -23,6 +24,12 @@ import formFieldMixin from './FormFieldMixin'
 
 export default {
   name: 'FormView',
-  mixins: [formFieldMixin]
+  mixins: [formFieldMixin],
+  props: {
+    type: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>

@@ -104,7 +104,7 @@ export default {
     })
   },
   mounted: function () {
-    if (typeof this.$el !== 'undefined' && this.$el) {
+    if (typeof this.$el.tagName !== 'undefined' && this.$el) {
       let input = this.$el.querySelector('input')
       if (input) {
         let label = this.$el.querySelector('label')

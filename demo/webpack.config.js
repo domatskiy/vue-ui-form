@@ -35,10 +35,13 @@ module.exports = {
       }
     ]
   },
+  /* externals: {
+    vue: 'vue'
+  }, */
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'plugin': path.resolve(__dirname, '../src/index.js')
+      'plugin': path.resolve(__dirname, '../dist/index.js')
     }
   },
   devServer: {
@@ -48,7 +51,7 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {

@@ -1,10 +1,10 @@
 {
   "name": "vue-ui-form",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "description": "vue form interace",
   "author": "Domatskiy",
   "private": false,
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/domatskiy/vue-ui-form.git"

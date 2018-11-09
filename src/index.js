@@ -8,8 +8,14 @@ import FormFile from './Components/FormFile.vue'
 import FormViewFiles from './Components/FormViewFiles.vue'
 import FormViewImages from './Components/FormViewImages.vue'
 
-const FormUI = {
-  install (VueInstance, options) {
+// const FormUI = {}
+
+/* if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(FormUI)
+} */
+
+export default {
+  install: function (VueInstance, options) {
     const components = [
       FormInterface,
       FormView,
@@ -23,14 +29,7 @@ const FormUI = {
     ]
 
     components.map(component => {
-      VueInstance.component(component.name, component);
+      VueInstance.component(component.name, component)
     })
   }
 }
-
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(FormUI)
-}
-
-export default FormUI

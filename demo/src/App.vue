@@ -69,8 +69,10 @@
 
 <script>
 import Vue from 'vue'
-import FormUI from 'plugin'
+import FormUI from '../../dist/index'
 Vue.use(FormUI)
+
+// console.log('FormUI', FormUI)
 
 export default {
   name: 'app',

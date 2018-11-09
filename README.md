@@ -21,6 +21,11 @@ npm i vue-ui-form --save-dev
     <div slot="processing">Sending :)</div>
     
     <form-view title="id" v-model="formData.id"></form-view>
+    
+    <form-view title="with slot">
+        default slot data
+    </form-view>
+    
     <form-checkbox title="active" v-model="formData.active" error-сode="active">
         <div slot="label-hint">help info</div>
         <div slot="hint">name of ...</div>
@@ -56,14 +61,20 @@ npm i vue-ui-form --save-dev
 | disabled | Boolean | false  | false |  |
 | error | Array | String | false  |  |  set error |
 
+### form-view properties
+| Name   | Type  | Required | Default | Description |
+| ------ |:-----:| :---------:| --------|:---------|
+| type | String | false  | text | text|boolean |
+| show-empty | Boolean | false  |  |
+| prefix | String |   |  |
+| postfix | String |   |  |
+  
 ### form-input properties
 | Name   | Type  | Required | Default | Description |
 | ------ |:-----:| :---------:| --------|:---------|
 | key-up-change | Boolean | false  | false | allow model changes in the keyup event |
 | key-up-change-delay | Number | false | 500 | delay of model change in the keyup event |
-
-
-
+  
 ### form-view-images and form-view-files events
 | Name   | Params  | Description |
 | ------ |:-----:| :---------:|

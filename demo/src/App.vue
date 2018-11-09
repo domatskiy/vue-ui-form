@@ -14,6 +14,9 @@
 				<div slot="label-hint">help for id</div>
 				<div slot="hint">help for id</div>
 			</form-view>
+			<form-view title="free" prefix="#" postfix="ps">
+				default slot data
+			</form-view>
 			<form-checkbox title="active" v-model="formData.active" error-code="active"></form-checkbox>
 			<form-input
 				title="Full name"

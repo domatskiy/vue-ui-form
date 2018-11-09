@@ -1,5 +1,5 @@
 <template>
-    <div class="form__field form__field--view" v-if="value || showEmpty" :class="className">
+    <div class="form__field form__field--view" v-if="value || canShowEmpty" :class="className">
         <label v-if="title">
             <span v-html="title"></span>
             <div class="hint">
@@ -8,7 +8,10 @@
         </label>
         <div class="field">
             <div class="prefix" v-html="prefix" v-if="prefix"></div>
-            <div class="value" v-html="value" v-if="type === 'text'"></div>
+            <div class="value" v-html="value" v-if="value && type === 'text'"></div>
+            <div class="value" v-if="!value">
+                <slot></slot>
+            </div>
             <div class="postfix" v-html="postfix" v-if="postfix && type === 'text'"></div>
             <div v-if="type === 'boolean'">{{ parseInt(value) === 1 || value === 'true' || value === 'y' ? 'Да' : 'Нет'}}</div>
             <div class="hint">
@@ -43,6 +46,16 @@ export default {
     postfix: {
       type: String,
       default: ''
+    }
+  },
+  date: function () {
+    return {
+      canShowEmpty: this.showEmpty
+    }
+  },
+  beforeMount: function () {
+    if (typeof this.$slots.default !== 'undefined') {
+      this.canShowEmpty = true
     }
   }
 }

@@ -104,19 +104,22 @@ export default {
     })
   },
   mounted: function () {
-    let input = this.$el.querySelector('input')
-    if (input) {
-      let label = this.$el.querySelector('label')
-      label.addEventListener('click', () => {
-        input.focus()
-      })
-    }
-    let textarea = this.$el.querySelector('textarea')
-    if (textarea) {
-      let label = this.$el.querySelector('label')
-      label.addEventListener('click', () => {
-        textarea.focus()
-      })
+    if (typeof this.$el !== 'undefined' && this.$el) {
+      let input = this.$el.querySelector('input')
+      if (input) {
+        let label = this.$el.querySelector('label')
+        label.addEventListener('click', () => {
+          input.focus()
+        })
+      }
+
+      let textarea = this.$el.querySelector('textarea')
+      if (textarea) {
+        let label = this.$el.querySelector('label')
+        label.addEventListener('click', () => {
+          textarea.focus()
+        })
+      }
     }
   }
 }

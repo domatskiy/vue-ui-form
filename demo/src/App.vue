@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-		{{formData}}
+
         <form-interface
 			title="DEMO form"
 			:data="formData"
@@ -10,7 +10,7 @@
 			@apply="applyForm"
 			@cancel="cancelForm">
 
-			<form-view title="id" v-model="formData.id">
+			<form-view title="id" v-model="formData.id" prefix="#" postfix="ps">
 				<div slot="label-hint">help for id</div>
 				<div slot="hint">help for id</div>
 			</form-view>
@@ -51,6 +51,12 @@
 			<form-view-files title="files" v-model="formData.image_view" @remove="removeFile"></form-view-files>
 
 		</form-interface>
+		<br>
+		<br>
+		<b>Form data:</b>
+		<br>
+		<pre>{{formData}}</pre>
+		<br>
 		<br>
 		<br>
 		<br>

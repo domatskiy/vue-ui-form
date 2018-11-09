@@ -123,6 +123,23 @@
 
   &--view{
     .field{
+      .value, .prefix, .postfix{
+        display: inline;
+      }
+
+      .prefix, .postfix{
+        color: #717171;
+      }
+
+      .prefix{
+        padding-right: 1px;
+      }
+
+      .postfix{
+        padding-left: 2px;
+        font-size: 80%;
+      }
+
       font-size: @field-font-size;
     }
   }

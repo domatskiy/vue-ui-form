@@ -1,5 +1,5 @@
 <template>
-    <div class="form__field form__field--view" v-if="value" :class="className">
+    <div class="form__field form__field--view" v-if="value || showEmpty" :class="className">
         <label v-if="title">
             <span v-html="title"></span>
             <div class="hint">
@@ -7,7 +7,9 @@
             </div>
         </label>
         <div class="field">
-            <div v-html="value" v-if="type === ''"></div>
+            <div class="prefix" v-html="prefix" v-if="prefix"></div>
+            <div class="value" v-html="value" v-if="type === 'text'"></div>
+            <div class="postfix" v-html="postfix" v-if="postfix && type === 'text'"></div>
             <div v-if="type === 'boolean'">{{ parseInt(value) === 1 || value === 'true' || value === 'y' ? 'Да' : 'Нет'}}</div>
             <div class="hint">
                 <slot name="hint"></slot>
@@ -27,6 +29,18 @@ export default {
   mixins: [formFieldMixin],
   props: {
     type: {
+      type: String,
+      default: 'text'
+    },
+    showEmpty: {
+      type: Boolean,
+      default: false
+    },
+    prefix: {
+      type: String,
+      default: ''
+    },
+    postfix: {
       type: String,
       default: ''
     }

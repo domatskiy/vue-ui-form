@@ -298,19 +298,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     });
   },
   mounted: function mounted() {
-    var input = this.$el.querySelector('input');
-    if (input) {
-      var label = this.$el.querySelector('label');
-      label.addEventListener('click', function () {
-        input.focus();
-      });
-    }
-    var textarea = this.$el.querySelector('textarea');
-    if (textarea) {
-      var _label = this.$el.querySelector('label');
-      _label.addEventListener('click', function () {
-        textarea.focus();
-      });
+    if (typeof this.$el !== 'undefined' && this.$el) {
+      var input = this.$el.querySelector('input');
+      if (input) {
+        var label = this.$el.querySelector('label');
+        label.addEventListener('click', function () {
+          input.focus();
+        });
+      }
+
+      var textarea = this.$el.querySelector('textarea');
+      if (textarea) {
+        var _label = this.$el.querySelector('label');
+        _label.addEventListener('click', function () {
+          textarea.focus();
+        });
+      }
     }
   }
 });

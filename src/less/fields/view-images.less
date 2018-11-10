@@ -1,20 +1,23 @@
 .view-images{
-
+  position: relative;
+  display: flex;
   margin-left: -10px;
   margin-right: -10px;
   box-sizing: border-box;
   width: 100%;
-  position: relative;
-  display: flex;
+  height: 150px;
 
   &__item{
+
     padding: 0 10px;
     position: relative;
     flex-basis: 50%;
+    min-height: 100%;
 
-    img{
-      width: 100%;
-      max-width: 200px;
+    & > * {
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
     }
 
     .remove{

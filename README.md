@@ -33,10 +33,45 @@ npm i vue-ui-form --save-dev
     
     <form-input title="name" v-model="formData.name" error-сode="name"></form-input>
     <form-text title="description" v-model="formData.description" error-сode="description"></form-text>
-    <form-file title="image" v-model="formData.image"></form-file>
     
-    <form-view-images title="image" v-model="formData.image_view" @remove="removeImage"></form-view-images>
-    <form-view-files title="image" v-model="formData.image_view" @remove="removeFile"></form-view-files>
+    <form-view title="add file">
+        <form-file 
+            v-model="formData.file"> 
+        </form-file>
+    </form-view>
+    
+    <form-view title="add files">
+        <form-file 
+            :multiple="true"
+            v-model="formData.files"> 
+            <template slot="file" slot-scope="file">
+                {{ file }}
+            </template>
+        </form-file>
+    </form-view>
+    
+    <form-view title="images">
+        <form-view-images 
+            v-model="formData.image_view" 
+            @remove="removeImage">
+            <template slot="file" slot-scope="file">
+                {{ file }}
+            </template>
+        </form-view-images>
+        <div slot="label-hint">images info</div>
+        <div slot="hint">images of ...</div>
+    </form-view>
+    
+    <form-view title="files">
+        <form-view-files 
+            v-model="formData.image_view" 
+            @remove="removeFile">
+            <template slot="file" slot-scope="file">
+                {{ file }}
+            </template>
+        </form-view-files>
+    </form-view>
+    
 
 </form-interface>
 ```

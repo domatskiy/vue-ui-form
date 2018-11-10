@@ -4,6 +4,7 @@ import FormInput from './Components/FormInput.vue'
 import FormSelect from './Components/FormSelect.vue'
 import FormText from './Components/FormText.vue'
 import FormCheckbox from './Components/FormCheckbox.vue'
+
 import FormFile from './Components/FormFile.vue'
 import FormViewFiles from './Components/FormViewFiles.vue'
 import FormViewImages from './Components/FormViewImages.vue'

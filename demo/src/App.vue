@@ -35,23 +35,38 @@
 				<div slot="label-hint">help select one</div>
 				<div slot="hint">help of select one</div>
 			</form-select>
+
 			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo" :required="false"></form-select>
+
 			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
 
-			<form-file title="new file" v-model="formData.file" :fileName="true">
-				<div slot="label-hint">please select one file</div>
-				<div slot="hint">select one file</div>
-			</form-file>
-			<form-file title="new files" v-model="formData.files" :fileName="true" :multiple="true">
-				<div slot="label-hint">help files info</div>
-				<div slot="hint">files of ...</div>
-			</form-file>
+			<form-view title="new file">
+				<form-file title="" v-model="formData.file" :fileName="true">
+					<div slot="label-hint">please select one file</div>
+					<div slot="hint">select one file</div>
+				</form-file>
+			</form-view>
 
-			<form-view-images title="images" v-model="formData.image_view" @remove="removeImage">
+			<form-view title="new files">
+				<form-file
+					v-model="formData.files"
+					:fileName="true"
+					:multiple="true">
+					<div slot="label-hint">help files info</div>
+					<div slot="hint">files of ...</div>
+				</form-file>
+			</form-view>
+
+			<form-view title="images">
+				<form-view-images v-model="formData.image_view" @remove="removeImage">
+				</form-view-images>
 				<div slot="label-hint">help images info</div>
 				<div slot="hint">images of ...</div>
-			</form-view-images>
-			<form-view-files title="files" v-model="formData.image_view" @remove="removeFile"></form-view-files>
+			</form-view>
+
+			<form-view title="files">
+				<form-view-files title="files" v-model="formData.image_view" @remove="removeFile"></form-view-files>
+			</form-view>
 
 		</form-interface>
 		<br>

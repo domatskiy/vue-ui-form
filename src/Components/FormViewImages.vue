@@ -2,11 +2,12 @@
     <div class="from-view-block from-view-block--images">
         <div class="view-images">
             <div class="view-images__item" v-for="(file, key) in images">
-                <slot name="image" v-bind="file">
-                    <div class="view-images__item" v-for="(file, key) in images" :style="{backgroundImage: 'url(' + file + ')'}"></div>
+
+                <slot name="image" v-bind="{file: file, key: key}">
+                    <div class="image" :style="{backgroundImage: 'url(' + file + ')'}"></div>
                 </slot>
-                <div
-                    class="remove"
+
+                <div class="remove"
                     v-if="removed"
                     @click="remove(key, file)"></div>
             </div>

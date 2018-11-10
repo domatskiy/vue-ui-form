@@ -52,20 +52,54 @@
 					v-model="formData.files"
 					:fileName="true"
 					:multiple="true">
-					<div slot="label-hint">help files info</div>
-					<div slot="hint">files of ...</div>
+				</form-file>
+				<div slot="label-hint">help files info</div>
+				<div slot="hint">files of ...</div>
+			</form-view>
+
+			<form-view title="new files with slot">
+				<form-file
+					v-model="formData.files"
+					:fileName="true"
+					:multiple="true">
+					<template slot="file" slot-scope="item">
+						key: {{ item.key }} <br>
+						file: {{ typeof item.file }} <br>
+						[name: {{ item.file.name }} size: {{ item.file.size }}b]
+					</template>
 				</form-file>
 			</form-view>
 
 			<form-view title="images">
-				<form-view-images v-model="formData.image_view" @remove="removeImage">
-				</form-view-images>
+				<form-view-images v-model="formData.image_view" @remove="removeImage"></form-view-images>
 				<div slot="label-hint">help images info</div>
 				<div slot="hint">images of ...</div>
 			</form-view>
 
+			<form-view title="images with slot">
+				<form-view-images v-model="formData.image_view" @remove="removeImage">
+					<template slot="image" slot-scope="item">
+						key: {{ item.key }} <br>
+						file: {{ item.file }}
+					</template>
+				</form-view-images>
+			</form-view>
+
 			<form-view title="files">
-				<form-view-files title="files" v-model="formData.image_view" @remove="removeFile"></form-view-files>
+				<form-view-files
+					v-model="formData.view_files" @remove="removeFile">
+				</form-view-files>
+			</form-view>
+
+			<form-view title="files with slot">
+				<form-view-files
+					v-model="formData.view_files"
+					@remove="removeFile">
+					<template slot="file" slot-scope="item">
+						key: {{ item.key }} <br>
+						file: {{ item.file }}
+					</template>
+				</form-view-files>
 			</form-view>
 
 		</form-interface>
@@ -113,7 +147,12 @@ export default {
         selectMulti: [3, 4],
         image: null,
         image_view: [
+          'https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopard.jpg',
           'https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopard.jpg'
+        ],
+        view_files: [
+          'https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopard.jpg',
+          'https://w-dog.ru/wallpapers/1/35/478019719227899/zhivotnyx-leopards.jpg'
         ]
       },
       formErrors: {},

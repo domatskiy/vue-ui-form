@@ -80,7 +80,7 @@ export default {
     if (this.$refs.mainContainer) {
       this.$refs.mainContainer.addEventListener('drop', this.onDrop, true)
     } else {
-      console.warn('ref mainContainer not found')
+      // console.warn('ref mainContainer not found')
     }
   },
   methods: {

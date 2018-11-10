@@ -9,12 +9,6 @@ import FormFile from './Components/FormFile.vue'
 import FormViewFiles from './Components/FormViewFiles.vue'
 import FormViewImages from './Components/FormViewImages.vue'
 
-// const FormUI = {}
-
-/* if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(FormUI)
-} */
-
 export default {
   install: function (VueInstance, options) {
     const components = [

@@ -8,6 +8,13 @@ import FormCheckbox from './Components/FormCheckbox.vue'
 import FormFile from './Components/FormFile.vue'
 import FormViewFiles from './Components/FormViewFiles.vue'
 import FormViewImages from './Components/FormViewImages.vue'
+import formMixin from './formMixin'
+import FormButton from './FormButton'
+
+export {
+  formMixin,
+  FormButton
+}
 
 export default {
   install: function (VueInstance, options) {

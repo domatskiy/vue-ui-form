@@ -40,12 +40,15 @@
 
 			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
 
+      <!-- {{formData.file ? formData.file.name : ''}} -->
+
 			<form-view title="new file">
 				<form-file title="" v-model="formData.file" :fileName="true">
 					<div slot="label-hint">please select one file</div>
 					<div slot="hint">select one file</div>
 				</form-file>
 			</form-view>
+
 
 			<form-view title="new files">
 				<form-file

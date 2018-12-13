@@ -1,13 +1,12 @@
 <template>
     <div class="from-view-block from-view-block--add-file">
-        <div style="height: 0; width: 0; overflow: hidden;">
+        <div style="height: 0!important; width: 0; padding: 0 !important; overflow: hidden!important;">
             <input
                 type="file"
                 :disabled="disabled === true || processing === true"
                 :multiple="multi"
                 @change="changeHandler" />
         </div>
-
         <div v-if="files.length > 0" class="file-list" ref="mainContainer">
             <div v-for="(file, key) in files" class="file-list__item">
                 <div class="file-card">
@@ -45,7 +44,7 @@ export default {
     value: {
       required: false
     },
-   /**
+    /**
     * Button text
     * @type {String}
     */
@@ -160,17 +159,19 @@ export default {
       }
     },
     files: function (files) {
-      console.log('change files, multiple=', this.multiple)
+      console.log('files change, multiple=', this.multiple, files)
       if (this.multiple === true) {
         let dt = new DataTransfer()
-        for (let file of this.files) {
-          dt.items.add(file)
-        }
+        Object.keys(files).map(($kye) => {
+          dt.items.add(files[$kye])
+        })
+        console.log('file emit more')
         this.$emit('input', dt.files)
       } else {
-        for (let file of this.files) {
-          this.$emit('input', file)
-        }
+        Object.keys(files).map(($key) => {
+          console.log('file emit one', files[$key])
+          this.$emit('input', files[$key])
+        })
       }
     }
   }

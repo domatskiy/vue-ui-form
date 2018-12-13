@@ -872,6 +872,18 @@ function applyToTag (styleElement, obj) {
       required: false,
       default: 'text'
     },
+    placeholder: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: function _default() {
+        return false;
+      }
+    },
     keyUpChange: {
       type: Boolean,
       required: false,
@@ -1601,7 +1613,7 @@ var staticRenderFns = []
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInput_vue__ = __webpack_require__(8);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0e0448b9_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInput_vue__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0bafb8bb_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInput_vue__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
 function injectStyle (context) {
   __webpack_require__(22)
@@ -1622,8 +1634,8 @@ var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInput_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0e0448b9_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInput_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0e0448b9_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInput_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0bafb8bb_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInput_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0bafb8bb_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInput_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -1703,7 +1715,7 @@ function listToStyles (parentId, list) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form__field form__field--text",class:_vm.className},[(_vm.title)?_c('label',[_c('span',{domProps:{"innerHTML":_vm._s(_vm.title)}}),_vm._v(" "),_c('div',{staticClass:"hint"},[_vm._t("label-hint")],2)]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"field"},[_c('input',{attrs:{"type":_vm.type,"disabled":_vm.disabled === true || _vm.processing === true},domProps:{"value":_vm.val},on:{"focus":function($event){_vm.setActive(1)},"blur":function($event){_vm.setActive(0)}}}),_vm._v(" "),_c('div',{staticClass:"hint"},[_vm._t("hint")],2),_vm._v(" "),_c('div',{staticClass:"suggestion"},[_vm._t("suggestion")],2),_vm._v(" "),(_vm.errors.length > 0)?_c('span',{staticClass:"error"},_vm._l((_vm.errors),function(err){return _c('div',[_vm._v(_vm._s(err))])})):_vm._e()])])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form__field form__field--text",class:_vm.className},[(_vm.title)?_c('label',[_c('span',{domProps:{"innerHTML":_vm._s(_vm.title)}}),_vm._v(" "),_c('div',{staticClass:"hint"},[_vm._t("label-hint")],2)]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"field"},[_c('input',{attrs:{"placeholder":_vm.placeholder,"readonly":_vm.readonly,"type":_vm.type,"disabled":_vm.disabled === true || _vm.processing === true},domProps:{"value":_vm.val},on:{"focus":function($event){_vm.setActive(1)},"blur":function($event){_vm.setActive(0)}}}),_vm._v(" "),_c('div',{staticClass:"hint"},[_vm._t("hint")],2),_vm._v(" "),_c('div',{staticClass:"suggestion"},[_vm._t("suggestion")],2),_vm._v(" "),(_vm.errors.length > 0)?_c('span',{staticClass:"error"},_vm._l((_vm.errors),function(err){return _c('div',[_vm._v(_vm._s(err))])})):_vm._e()])])}
 var staticRenderFns = []
 
 

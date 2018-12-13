@@ -8,11 +8,13 @@
         </label>
         <div class="field">
             <input
-                :type="type"
-                :disabled="disabled === true || processing === true"
-                v-on:focus="setActive(1)"
-                v-on:blur="setActive(0)"
-                :value="val"/>
+              :placeholder="placeholder"
+              :readonly="readonly"
+              :type="type"
+              :disabled="disabled === true || processing === true"
+              v-on:focus="setActive(1)"
+              v-on:blur="setActive(0)"
+              :value="val"/>
             <div class="hint">
                 <slot name="hint"></slot>
             </div>
@@ -36,6 +38,18 @@ export default {
     type: {
       required: false,
       default: 'text'
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: function () {
+        return false
+      }
     },
     keyUpChange: {
       type: Boolean,

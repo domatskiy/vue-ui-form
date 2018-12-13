@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
+  <div id="app">
 
-        <form-interface
+    <form-interface
 			title="DEMO form"
 			:data="formData"
 			:processing="formProcessing"

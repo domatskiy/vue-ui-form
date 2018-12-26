@@ -97,9 +97,13 @@ export default {
       // clear errors
       this.errorEvent = []
     })
+    formFieldBus.$on('clear-errors', ($errors) => {
+      // clear errors
+      this.errorEvent = []
+    })
     formFieldBus.$on('error', ($field, $error) => {
       if (this.errorCode && $field === this.errorCode) {
-        this.errorEvent = $error
+        this.errorEvent = typeof $error === 'object' ? $error : [$error]
       }
     })
   },

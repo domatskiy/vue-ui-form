@@ -121,6 +121,7 @@ export default {
         // console.warn('errors >>>>>>>>>>>>>>>>>>>>> ', $errors)
         if ($errors === null) {
           formFieldBus.$emit('errors', [])
+          formFieldBus.$emit('clear-errors', [])
           return
         }
         if (Array.isArray($errors)) {

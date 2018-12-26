@@ -21,7 +21,7 @@
             <div class="suggestion">
                 <slot name="suggestion"></slot>
             </div>
-            <span class="error" v-if="errors.length > 0">
+            <span class="error" v-if="Array.isArray(errors) && errors.length > 0">
                 <div v-for="err in errors">{{err}}</div>
             </span>
         </div>

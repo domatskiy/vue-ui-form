@@ -92,7 +92,8 @@ npm i vue-ui-form --save-dev
 | Name   | Type  | Required | Default | Description |
 | ------ |:-----:| :---------:| --------|:---------|
 | title | String | false  |        | form title |
-| error-сode | String | false  |  |  |
+| error-code | String | false  |  | get errors from property errors of FormInterface |
+| required | Boolean | false  | false |  |
 | disabled | Boolean | false  | false |  |
 | error | Array | String | false  |  |  set error |
 

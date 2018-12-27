@@ -1,10 +1,6 @@
 {
   "name": "vue-ui-form",
-<<<<<<< HEAD
-  "version": "1.1.7",
-=======
-  "version": "1.1.8",
->>>>>>> dev
+  "version": "1.1.9",
   "description": "vue form interface",
   "author": "Domatskiy",
   "private": false,

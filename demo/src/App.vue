@@ -19,7 +19,8 @@
 			</form-view>
 			<form-checkbox title="active" v-model="formData.active" error-code="active"></form-checkbox>
 			<form-input
-				title="Full name"
+        id="nname"
+        title="Full name"
 				:key-up-change="true"
 				:key-up-change-delay="300"
 				v-model="formData.name" error-code="name">
@@ -165,10 +166,10 @@ export default {
   methods: {
     removeImage: function (file) {
       console.log('removeImage', file)
-	},
+    },
     removeFile: function (file) {
       console.log('removeFile', file)
-	},
+    },
     saveForm: function ($data) {
       console.info('saveForm', $data)
       this.applyChanges()

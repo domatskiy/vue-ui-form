@@ -3,6 +3,10 @@ import formFieldBus from './../formFieldBus'
 export default {
   name: 'FormFieldMixin',
   props: {
+    id: {
+      type: String,
+      default: ''
+    },
     title: {
       type: String,
       default: ''
@@ -12,6 +16,13 @@ export default {
       default: ''
     },
     disabled: {
+      type: Boolean,
+      required: false,
+      default: function () {
+        return false
+      }
+    },
+    required: {
       type: Boolean,
       required: false,
       default: function () {
@@ -45,8 +56,8 @@ export default {
         err.push(this.error)
       } else {
         if (Array.isArray(this.errorEvent)) {
-          this.errorEvent.forEach((err) => {
-            err.push(err)
+          this.errorEvent.forEach((e) => {
+            err.push(e)
           })
         } else if (typeof this.errorEvent === 'string') {
           err.push(this.errorEvent)
@@ -91,6 +102,7 @@ export default {
   },
   created: function () {
     formFieldBus.$on('form-interface-processing', ($processing) => {
+      // console.log('form-interface-processing', $processing)
       this.processing = $processing
     })
     formFieldBus.$on('errors', ($errors) => {

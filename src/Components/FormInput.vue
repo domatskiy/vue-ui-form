@@ -1,6 +1,6 @@
 <template>
     <div class="form__field form__field--text" :class="className">
-        <label v-if="title">
+        <label v-if="title" :for="id">
             <span v-html="title"></span>
             <div class="hint">
                 <slot name="label-hint"></slot>
@@ -8,10 +8,12 @@
         </label>
         <div class="field">
             <input
+              :id="id"
               :placeholder="placeholder"
               :readonly="readonly"
               :type="type"
               :disabled="disabled === true || processing === true"
+              :required="required === true"
               v-on:focus="setActive(1)"
               v-on:blur="setActive(0)"
               :value="val"/>
@@ -21,9 +23,9 @@
             <div class="suggestion">
                 <slot name="suggestion"></slot>
             </div>
-            <span class="error" v-if="Array.isArray(errors) && errors.length > 0">
-                <div v-for="err in errors">{{err}}</div>
-            </span>
+            <div class="error" v-if="Array.isArray(errors) && errors.length > 0">
+                <span v-for="err in errors">{{err}}</span>
+            </div>
         </div>
     </div>
 </template>

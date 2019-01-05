@@ -16,7 +16,7 @@
 			<button
 				type="button"
 				v-for="button in buttons"
-				:class="[buttonsClass, button.code, button.class, (button.def === true ? (button.class ? button.class + '--def' : 'def') : null)]"
+				:class="[buttonsClass, button.code, button.className, (button.def === true ? (button.className ? button.className + '--def' : 'def') : null)]"
 				:disabled="processing === true"
 				@click="buttonClick(button.event, $event)">{{button.name}}</button>
 		</div>

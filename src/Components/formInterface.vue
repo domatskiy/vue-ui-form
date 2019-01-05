@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import formButton from './../FormButton'
+import FormButton from './../FormButton'
 import formFieldBus from './../formFieldBus'
 
 export default {
@@ -40,9 +40,9 @@ export default {
       required: false,
       default: function () {
         return [
-          new formButton('save', 'Сохранить', null, true),
-          new formButton('apply', 'Применить'),
-          new formButton('cancel', 'Отмена')
+          new FormButton('save', 'Сохранить', null, true),
+          new FormButton('apply', 'Применить'),
+          new FormButton('cancel', 'Отмена')
         ]
       }
     },

@@ -40,7 +40,7 @@ export default {
       this.$emit('remove', $file)
     },
     getFileName: function (path) {
-      return path.replace(/^.*[\\\/]/, '')
+      return path.replace(/^.*[\\/]/, '')
     }
   },
   computed: {

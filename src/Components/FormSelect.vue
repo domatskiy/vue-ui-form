@@ -168,7 +168,6 @@ export default {
     calcTitle: function () {
       let text = []
       if (Array.isArray(this.values) && this.values.length > 0) {
-
         // заполняем текст
         this.values.forEach((val) => {
           if (this.list.hasOwnProperty(val)) {

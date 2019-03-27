@@ -32,14 +32,15 @@
 				<div slot="hint">name of ...</div>
 			</form-text>
 
-			<form-select title="Select one" v-model="formData.selectOne" :list="opt" error-code="selectOne">
+			<form-select title="Select one" v-model="formData.selectOne" :list="opt" :search="true" error-code="selectOne">
 				<div slot="label-hint">help select one</div>
 				<div slot="hint">help of select one</div>
 			</form-select>
 
-			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" error-code="selectTwo" :required="false"></form-select>
+			<form-select title="Select two" v-model="formData.selectTwo" :list="opt" :search="true" error-code="selectTwo" :required="false"></form-select>
 
-			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :multi="true" error-code="selectMulti"></form-select>
+			<form-select title="Select multi" v-model="formData.selectMulti" :list="opt" :search="true" :multi="true" error-code="selectMulti"></form-select>
+      <form-select title="Select multi tagged" v-model="formData.selectMulti" :list="opt" :search="true" :tagged="true" :multi="true" error-code="selectMulti"></form-select>
 
       <!-- {{formData.file ? formData.file.name : ''}} -->
 

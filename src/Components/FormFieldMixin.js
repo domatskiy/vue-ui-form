@@ -37,10 +37,10 @@ export default {
       default: ''
     }
   },
-  data () {
+  data: function () {
     return {
       focus_active: 0,
-      errorEvent: [],
+      zzzz: [],
       processing: false
     }
   },
@@ -49,20 +49,73 @@ export default {
       this.focus_active = active
     }
   },
+  created: function () {
+    formFieldBus.$on('form-interface-processing', ($processing) => {
+      // console.log('form-interface-processing', $processing)
+      this.processing = $processing
+    })
+
+    formFieldBus.$on('errors', ($errors) => {
+      // clear errors
+      console.error('field >>> errors - set []')
+      this.$set(this, 'zzzz', [])
+    })
+
+    formFieldBus.$on('clear-errors', ($errors) => {
+      // clear errors
+      console.error('field >>> clear-errors - set []')
+      this.$set(this, 'zzzz', [])
+    })
+
+    formFieldBus.$on('error', ($field, $error) => {
+      if (this.errorCode && $field === this.errorCode) {
+        let er = Array.isArray($error) ? $error : ($error ? [$error] : [])
+        this.$set(this, 'zzzz', er)
+      }
+    })
+
+    if (this.$el && typeof this.$el.tagName !== 'undefined') {
+      let label
+      // search label only for input and textarea
+      let input = this.$el.querySelector('input')
+      if (input) {
+        label = this.$el.querySelector('label')
+      } else {
+        let textarea = this.$el.querySelector('textarea')
+        if (textarea) {
+          label = this.$el.querySelector('label')
+        }
+      }
+
+      if (label) {
+        label.addEventListener('click', () => {
+          input.focus()
+        })
+      }
+    }
+  },
   computed: {
     errors: function () {
       let err = []
-      if (this.error) {
+
+      if (typeof this.error === 'string' && this.error) {
         err.push(this.error)
-      } else {
-        if (Array.isArray(this.errorEvent)) {
-          this.errorEvent.forEach((e) => {
+      } else if (Array.isArray(this.error)) {
+        this.error.forEach((e) => {
+          err.push(e)
+        })
+      }
+
+      if (this.errorCode) {
+        if (Array.isArray(this.zzzz)) {
+          this.zzzz.forEach((e) => {
             err.push(e)
           })
-        } else if (typeof this.errorEvent === 'string') {
-          err.push(this.errorEvent)
+        } else if (this.zzzz) {
+          err.push(this.zzzz)
         }
       }
+
       return err
     },
     className () {
@@ -98,44 +151,6 @@ export default {
       }
 
       return cl
-    }
-  },
-  created: function () {
-    formFieldBus.$on('form-interface-processing', ($processing) => {
-      // console.log('form-interface-processing', $processing)
-      this.processing = $processing
-    })
-    formFieldBus.$on('errors', ($errors) => {
-      // clear errors
-      this.errorEvent = []
-    })
-    formFieldBus.$on('clear-errors', ($errors) => {
-      // clear errors
-      this.errorEvent = []
-    })
-    formFieldBus.$on('error', ($field, $error) => {
-      if (this.errorCode && $field === this.errorCode) {
-        this.errorEvent = typeof $error === 'object' ? $error : [$error]
-      }
-    })
-  },
-  mounted: function () {
-    if (typeof this.$el.tagName !== 'undefined' && this.$el) {
-      let input = this.$el.querySelector('input')
-      if (input) {
-        let label = this.$el.querySelector('label')
-        label.addEventListener('click', () => {
-          input.focus()
-        })
-      }
-
-      let textarea = this.$el.querySelector('textarea')
-      if (textarea) {
-        let label = this.$el.querySelector('label')
-        label.addEventListener('click', () => {
-          textarea.focus()
-        })
-      }
     }
   }
 }

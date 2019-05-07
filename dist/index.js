@@ -232,30 +232,81 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   data: function data() {
     return {
       focus_active: 0,
-      errorEvent: [],
+      zzzz: [],
       processing: false
     };
   },
-
   methods: {
     setActive: function setActive(active) {
       this.focus_active = active;
     }
   },
+  created: function created() {
+    var _this = this;
+
+    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('form-interface-processing', function ($processing) {
+      _this.processing = $processing;
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('errors', function ($errors) {
+      console.error('field >>> errors - set []');
+      _this.$set(_this, 'zzzz', []);
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('clear-errors', function ($errors) {
+      console.error('field >>> clear-errors - set []');
+      _this.$set(_this, 'zzzz', []);
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('error', function ($field, $error) {
+      if (_this.errorCode && $field === _this.errorCode) {
+        var er = Array.isArray($error) ? $error : $error ? [$error] : [];
+        _this.$set(_this, 'zzzz', er);
+      }
+    });
+
+    if (this.$el && typeof this.$el.tagName !== 'undefined') {
+      var label = void 0;
+
+      var input = this.$el.querySelector('input');
+      if (input) {
+        label = this.$el.querySelector('label');
+      } else {
+        var textarea = this.$el.querySelector('textarea');
+        if (textarea) {
+          label = this.$el.querySelector('label');
+        }
+      }
+
+      if (label) {
+        label.addEventListener('click', function () {
+          input.focus();
+        });
+      }
+    }
+  },
   computed: {
     errors: function errors() {
       var err = [];
-      if (this.error) {
+
+      if (typeof this.error === 'string' && this.error) {
         err.push(this.error);
-      } else {
-        if (Array.isArray(this.errorEvent)) {
-          this.errorEvent.forEach(function (e) {
+      } else if (Array.isArray(this.error)) {
+        this.error.forEach(function (e) {
+          err.push(e);
+        });
+      }
+
+      if (this.errorCode) {
+        if (Array.isArray(this.zzzz)) {
+          this.zzzz.forEach(function (e) {
             err.push(e);
           });
-        } else if (typeof this.errorEvent === 'string') {
-          err.push(this.errorEvent);
+        } else if (this.zzzz) {
+          err.push(this.zzzz);
         }
       }
+
       return err;
     },
     className: function className() {
@@ -291,43 +342,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }
 
       return cl;
-    }
-  },
-  created: function created() {
-    var _this = this;
-
-    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('form-interface-processing', function ($processing) {
-      _this.processing = $processing;
-    });
-    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('errors', function ($errors) {
-      _this.errorEvent = [];
-    });
-    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('clear-errors', function ($errors) {
-      _this.errorEvent = [];
-    });
-    __WEBPACK_IMPORTED_MODULE_0__formFieldBus__["a" /* default */].$on('error', function ($field, $error) {
-      if (_this.errorCode && $field === _this.errorCode) {
-        _this.errorEvent = (typeof $error === 'undefined' ? 'undefined' : _typeof($error)) === 'object' ? $error : [$error];
-      }
-    });
-  },
-  mounted: function mounted() {
-    if (typeof this.$el.tagName !== 'undefined' && this.$el) {
-      var input = this.$el.querySelector('input');
-      if (input) {
-        var label = this.$el.querySelector('label');
-        label.addEventListener('click', function () {
-          input.focus();
-        });
-      }
-
-      var textarea = this.$el.querySelector('textarea');
-      if (textarea) {
-        var _label = this.$el.querySelector('label');
-        _label.addEventListener('click', function () {
-          textarea.focus();
-        });
-      }
     }
   }
 });
@@ -732,19 +746,67 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
   },
   data: function data() {
-    return {};
+    return {
+      errCodes: [],
+      totalErrors: []
+    };
   },
+  mounted: function mounted() {
+    var _this = this;
 
-  mounted: function mounted() {},
+    var nodes = this.$slots.default;
+    var errCodes = [];
+    Object.keys(nodes).map(function (key) {
+      var node = nodes[key];
+      if (_typeof(node.componentOptions) === 'object' && typeof node.componentOptions.tag !== 'undefined') {
+        if (['form-view', 'form-checkbox', 'form-input', 'form-text', 'form-select'].indexOf(node.componentOptions.tag) > -1 && _typeof(node.componentOptions.propsData) === 'object' && typeof node.componentOptions.propsData.errorCode === 'string') {
+          errCodes.push(node.componentOptions.propsData.errorCode);
+        }
+      }
+    });
+    this.$set(this, 'errCodes', errCodes);
+
+    this.$watch('errors', function ($errors, $oldErrors) {
+      if ($errors === null) {
+        console.log('errors null');
+        _this.totalErrors = [];
+        __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('errors', []);
+        __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('clear-errors', []);
+        return;
+      }
+      if (Array.isArray($errors)) {
+        __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('errors', $errors);
+        _this.totalErrors = $errors;
+      } else if ($errors && (typeof $errors === 'undefined' ? 'undefined' : _typeof($errors)) === 'object') {
+        var totalErrors = [];
+        Object.keys($errors).map(function (key) {
+          if (_this.errCodes.indexOf(key) === -1) {
+            totalErrors.push($errors[key]);
+          } else {
+            if (Array.isArray($errors[key])) {
+              $errors[key].forEach(function ($err) {
+                __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('error', key, $err);
+              });
+            } else if (typeof $errors[key] === 'string') {
+              __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('error', key, $errors[key]);
+            }
+          }
+        });
+        _this.totalErrors = totalErrors;
+      }
+    }, {
+      deep: true
+    });
+  },
   methods: {
     submitForm: function submitForm($event) {
-      var _this = this;
+      var _this2 = this;
 
       $event.preventDefault();
       $event.stopPropagation();
       this.buttons.forEach(function ($button) {
         if ($button.def === true) {
-          _this.$emit($button.event, _this.data);
+          _this2.$emit($button.event, _this2.data);
         }
       });
     },
@@ -759,10 +821,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   computed: {
     formClass: function formClass() {
       var classes = [];
-
-      if (Array.isArray(this.err) && this.err.length > 0) {
+      if (Array.isArray(this.errors) && this.errors.length > 0) {
         classes.push('form--error');
-      } else if (_typeof(this.err) === 'object' && Object.keys(this.err).length > 0) {
+      } else if (this.errors !== null && _typeof(this.errors) === 'object' && Object.keys(this.errors).length > 0) {
         classes.push('form--error');
       }
 
@@ -777,31 +838,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
   },
   watch: {
-    errors: {
-      handler: function handler($errors, oldVal) {
-        if ($errors === null) {
-          __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('errors', []);
-          __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('clear-errors', []);
-          return;
-        }
-        if (Array.isArray($errors)) {
-          $errors.forEach(function ($err) {
-            __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('errors', $err);
-          });
-        } else if ((typeof $errors === 'undefined' ? 'undefined' : _typeof($errors)) === 'object') {
-          Object.keys($errors).map(function (key) {
-            if (Array.isArray($errors[key])) {
-              $errors[key].forEach(function ($err) {
-                __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('error', key, $err);
-              });
-            } else if (typeof $errors[key] === 'string') {
-              __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('error', key, $errors[key]);
-            }
-          });
-        }
-      },
-      deep: true
-    },
     processing: function processing($processing) {
       __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('form-interface-processing', $processing);
     }
@@ -1715,7 +1751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInterface_vue__ = __webpack_require__(5);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_22ee09d4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd5c398_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
 /* script */
 
@@ -1733,8 +1769,8 @@ var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInterface_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_22ee09d4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_22ee09d4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd5c398_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd5c398_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -1751,7 +1787,7 @@ var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{staticClass:"form",class:_vm.formClass,on:{"submit":_vm.submitForm}},[(_vm.processing)?_c('div',{staticClass:"form__processing"},[_vm._t("processing",[_vm._v("Sending ...")])],2):_vm._e(),_vm._v(" "),(_vm.title)?_c('div',{staticClass:"form__title"},[_vm._v(_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),_vm._t("desc_before"),_vm._v(" "),_c('div',{staticClass:"form__body"},[_vm._t("default")],2),_vm._v(" "),_c('div',{staticClass:"form__errors"}),_vm._v(" "),_vm._t("desc_after"),_vm._v(" "),_c('div',{staticClass:"form__buttons"},_vm._l((_vm.buttons),function(button){return _c('button',{class:[_vm.buttonsClass, button.code, button.className, (button.def === true ? (button.className ? button.className + '--def' : 'def') : null)],attrs:{"type":"button","disabled":_vm.processing === true},on:{"click":function($event){return _vm.buttonClick(button.event, $event)}}},[_vm._v(_vm._s(button.name))])}),0)],2)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{staticClass:"form",class:_vm.formClass,on:{"submit":_vm.submitForm}},[(_vm.processing)?_c('div',{staticClass:"form__processing"},[_vm._t("processing",[_vm._v("Sending ...")])],2):_vm._e(),_vm._v(" "),(_vm.title)?_c('div',{staticClass:"form__title"},[_vm._v(_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),_vm._t("desc_before"),_vm._v(" "),_c('div',{staticClass:"form__body"},[_vm._t("default")],2),_vm._v(" "),(Array.isArray(_vm.totalErrors) && _vm.totalErrors.length > 0)?_c('div',{staticClass:"form__errors"},[_c('ul',_vm._l((_vm.totalErrors),function(err){return _c('li',[_vm._v(_vm._s(err))])}),0)]):_vm._e(),_vm._v(" "),_vm._t("desc_after"),_vm._v(" "),_c('div',{staticClass:"form__buttons"},_vm._l((_vm.buttons),function(button){return _c('button',{class:[_vm.buttonsClass, button.code, button.className, (button.def === true ? (button.className ? button.className + '--def' : 'def') : null)],attrs:{"type":"button","disabled":_vm.processing === true},on:{"click":function($event){return _vm.buttonClick(button.event, $event)}}},[_vm._v(_vm._s(button.name))])}),0)],2)}
 var staticRenderFns = []
 
 

@@ -23,7 +23,8 @@
         title="Full name"
 				:key-up-change="true"
 				:key-up-change-delay="300"
-				v-model="formData.name" error-code="name">
+				v-model="formData.name"
+        error-code="name">
 				<div slot="label-hint">help info</div>
 				<div slot="hint">name of ...</div>
 			</form-input>
@@ -198,6 +199,7 @@ export default {
         this.formErrors.active = 'error active'
         this.formErrors.sort = 'error sort'
         this.formErrors.name = 'error name'
+        this.formErrors.other = 'other error'
 
         console.log('applyChanges err 2')
         this.formErrors.selectOne = 'error selectOne'

@@ -89,23 +89,25 @@ export default {
   },
   mounted: function () {
     let input = this.$el.querySelector('input')
-    input.addEventListener('change', (e) => {
-      this.$emit('input', input.value)
-    })
-    input.addEventListener('keyup', (e) => {
-      if (this.timer !== null) {
-        clearTimeout(this.timer)
-        this.timer = null
-      }
-      if (input.value && input.value.length > this.suggestionMinLen) {
-        this.$emit('suggestion-get', input.value)
-      }
-      if (this.keyUpChange === true) {
-        this.timer = setTimeout(() => {
-          this.$emit('input', input.value)
-        }, this.keyUpChangeDelay)
-      }
-    })
+    if (input) {
+      input.addEventListener('change', (e) => {
+        this.$emit('input', input.value)
+      })
+      input.addEventListener('keyup', (e) => {
+        if (this.timer !== null) {
+          clearTimeout(this.timer)
+          this.timer = null
+        }
+        if (input.value && input.value.length > this.suggestionMinLen) {
+          this.$emit('suggestion-get', input.value)
+        }
+        if (this.keyUpChange === true) {
+          this.timer = setTimeout(() => {
+            this.$emit('input', input.value)
+          }, this.keyUpChangeDelay)
+        }
+      })
+    }
   },
   computed: {
     val () {
@@ -119,8 +121,7 @@ export default {
       }
       return val
     }
-  },
-  watch: {}
+  }
 }
 </script>
 

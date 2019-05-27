@@ -73,6 +73,13 @@
         default: function () {
           return false
         }
+      },
+      debug: {
+        type: Boolean,
+        required: false,
+        default: function () {
+          return false
+        }
       }
     },
     data: function () {
@@ -84,6 +91,10 @@
     mounted: function () {
       let nodes = this.$slots.default
       let errCodes = []
+      console.warn('vue-form-ui => debug=', this.debug)
+      if (this.debug === true) {
+        console.debug('vue-form-ui => FormInterface nodes=', nodes)
+      }
       Object.keys(nodes).map(function (key) {
         let node = nodes[key]
         if (typeof node.componentOptions === 'object' && typeof node.componentOptions.tag !== 'undefined') {
@@ -93,32 +104,52 @@
         }
       })
       this.$set(this, 'errCodes', errCodes)
+      if (this.debug === true) {
+        console.debug('vue-form-ui => FormInterface, errCodes=', errCodes)
+      }
 
       this.$watch('errors', ($errors, $oldErrors) => {
+        if (this.debug === true) {
+          console.debug('vue-form-ui => FormInterface, watch errors=', $errors, 'old errors=', $oldErrors)
+        }
         if ($errors === null) {
-          console.log('errors null')
           this.totalErrors = []
           formFieldBus.$emit('errors', [])
           formFieldBus.$emit('clear-errors', [])
           return
         }
         if (Array.isArray($errors)) {
+          if (this.debug === true) {
+            console.debug('vue-form-ui => FormInterface, watch errors is array')
+          }
           formFieldBus.$emit('errors', $errors)
           this.totalErrors = $errors
         } else if ($errors && typeof $errors === 'object') {
+          if (this.debug === true) {
+            console.debug('vue-form-ui => FormInterface, watch errors is object')
+          }
           let totalErrors = []
           Object.keys($errors).map((key) => {
             if (this.errCodes.indexOf(key) === -1) {
               // not found field with this err code
               totalErrors.push($errors[key])
+              if (this.debug === true) {
+                console.debug('vue-form-ui => FormInterface => watch errors, add to TOTAL errors:', $errors[key])
+              }
             } else {
               // has field
               if (Array.isArray($errors[key])) {
                 $errors[key].forEach(($err) => {
                   formFieldBus.$emit('error', key, $err)
+                  if (this.debug === true) {
+                    console.debug('vue-form-ui => FormInterface => watch errors, emmit error: key=', key, 'err=', $err)
+                  }
                 })
               } else if (typeof $errors[key] === 'string') {
                 formFieldBus.$emit('error', key, $errors[key])
+                if (this.debug === true) {
+                  console.debug('vue-form-ui => FormInterface => watch errors, emmit errors as string', 'key=', key, 'err=', $errors[key])
+                }
               }
             }
           })
@@ -132,6 +163,9 @@
       submitForm: function ($event) {
         $event.preventDefault()
         $event.stopPropagation()
+        if (this.debug === true) {
+          console.debug('vue-form-ui => FormInterface => submitForm')
+        }
         this.buttons.forEach($button => {
           if ($button.def === true) {
             this.$emit($button.event, this.data)
@@ -141,6 +175,9 @@
       buttonClick: function ($ecode, $event) {
         $event.preventDefault()
         $event.stopPropagation()
+        if (this.debug === true) {
+          console.debug('vue-form-ui => FormInterface => buttonClick, code=', $ecode)
+        }
         if (typeof $ecode === 'string') {
           this.$emit($ecode, this.data)
         }

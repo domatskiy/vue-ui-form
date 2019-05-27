@@ -743,6 +743,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       default: function _default() {
         return false;
       }
+    },
+    debug: {
+      type: Boolean,
+      required: false,
+      default: function _default() {
+        return false;
+      }
     }
   },
   data: function data() {
@@ -756,6 +763,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     var nodes = this.$slots.default;
     var errCodes = [];
+    console.warn('vue-form-ui => debug=', this.debug);
+    if (this.debug === true) {
+      console.debug('vue-form-ui => FormInterface nodes=', nodes);
+    }
     Object.keys(nodes).map(function (key) {
       var node = nodes[key];
       if (_typeof(node.componentOptions) === 'object' && typeof node.componentOptions.tag !== 'undefined') {
@@ -765,30 +776,50 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }
     });
     this.$set(this, 'errCodes', errCodes);
+    if (this.debug === true) {
+      console.debug('vue-form-ui => FormInterface, errCodes=', errCodes);
+    }
 
     this.$watch('errors', function ($errors, $oldErrors) {
+      if (_this.debug === true) {
+        console.debug('vue-form-ui => FormInterface, watch errors=', $errors, 'old errors=', $oldErrors);
+      }
       if ($errors === null) {
-        console.log('errors null');
         _this.totalErrors = [];
         __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('errors', []);
         __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('clear-errors', []);
         return;
       }
       if (Array.isArray($errors)) {
+        if (_this.debug === true) {
+          console.debug('vue-form-ui => FormInterface, watch errors is array');
+        }
         __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('errors', $errors);
         _this.totalErrors = $errors;
       } else if ($errors && (typeof $errors === 'undefined' ? 'undefined' : _typeof($errors)) === 'object') {
+        if (_this.debug === true) {
+          console.debug('vue-form-ui => FormInterface, watch errors is object');
+        }
         var totalErrors = [];
         Object.keys($errors).map(function (key) {
           if (_this.errCodes.indexOf(key) === -1) {
             totalErrors.push($errors[key]);
+            if (_this.debug === true) {
+              console.debug('vue-form-ui => FormInterface => watch errors, add to TOTAL errors:', $errors[key]);
+            }
           } else {
             if (Array.isArray($errors[key])) {
               $errors[key].forEach(function ($err) {
                 __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('error', key, $err);
+                if (_this.debug === true) {
+                  console.debug('vue-form-ui => FormInterface => watch errors, emmit error: key=', key, 'err=', $err);
+                }
               });
             } else if (typeof $errors[key] === 'string') {
               __WEBPACK_IMPORTED_MODULE_1__formFieldBus__["a" /* default */].$emit('error', key, $errors[key]);
+              if (_this.debug === true) {
+                console.debug('vue-form-ui => FormInterface => watch errors, emmit errors as string', 'key=', key, 'err=', $errors[key]);
+              }
             }
           }
         });
@@ -804,6 +835,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       $event.preventDefault();
       $event.stopPropagation();
+      if (this.debug === true) {
+        console.debug('vue-form-ui => FormInterface => submitForm');
+      }
       this.buttons.forEach(function ($button) {
         if ($button.def === true) {
           _this2.$emit($button.event, _this2.data);
@@ -813,6 +847,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     buttonClick: function buttonClick($ecode, $event) {
       $event.preventDefault();
       $event.stopPropagation();
+      if (this.debug === true) {
+        console.debug('vue-form-ui => FormInterface => buttonClick, code=', $ecode);
+      }
       if (typeof $ecode === 'string') {
         this.$emit($ecode, this.data);
       }
@@ -1751,7 +1788,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInterface_vue__ = __webpack_require__(5);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd5c398_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_14547711_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
 /* script */
 
@@ -1769,8 +1806,8 @@ var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInterface_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd5c398_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd5c398_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_14547711_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_14547711_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,

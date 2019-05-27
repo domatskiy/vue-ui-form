@@ -19,15 +19,17 @@
 				default slot data
 			</form-view>
 			<form-checkbox title="active" v-model="formData.active" error-code="active"></form-checkbox>
-			<form-input
-        id="nname"
-        title="Full name"
-				:key-up-change="true"
-				:key-up-change-delay="300"
-				v-model="formData.name" error-code="name">
-				<div slot="label-hint">help info</div>
-				<div slot="hint">name of ...</div>
-			</form-input>
+      <div>
+        <form-input
+          id="nname"
+          title="Full name"
+          :key-up-change="true"
+          :key-up-change-delay="300"
+          v-model="formData.name" error-code="name">
+          <div slot="label-hint">help info</div>
+          <div slot="hint">name of ...</div>
+        </form-input>
+      </div>
 			<form-text title="Text description" v-model="formData.text" error-code="field">
 				<div slot="label-hint">help info</div>
 				<div slot="hint">name of ...</div>

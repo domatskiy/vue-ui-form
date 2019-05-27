@@ -763,18 +763,24 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     var nodes = this.$slots.default;
     var errCodes = [];
-    console.warn('vue-form-ui => debug=', this.debug);
     if (this.debug === true) {
+      console.warn('vue-form-ui => debug=', this.debug);
       console.debug('vue-form-ui => FormInterface nodes=', nodes);
     }
-    Object.keys(nodes).map(function (key) {
-      var node = nodes[key];
-      if (_typeof(node.componentOptions) === 'object' && typeof node.componentOptions.tag !== 'undefined') {
-        if (['form-view', 'form-checkbox', 'form-input', 'form-text', 'form-select'].indexOf(node.componentOptions.tag) > -1 && _typeof(node.componentOptions.propsData) === 'object' && typeof node.componentOptions.propsData.errorCode === 'string') {
+
+    var comp = this.getComponentNodes(nodes);
+    if (this.debug === true) {
+      console.log('vue-form-ui => getComponentNodes', comp);
+    }
+
+    if (Array.isArray(comp)) {
+      comp.forEach(function (node) {
+        if (typeof node.componentOptions.propsData.errorCode === 'string') {
           errCodes.push(node.componentOptions.propsData.errorCode);
         }
-      }
-    });
+      });
+    }
+
     this.$set(this, 'errCodes', errCodes);
     if (this.debug === true) {
       console.debug('vue-form-ui => FormInterface, errCodes=', errCodes);
@@ -830,6 +836,29 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     });
   },
   methods: {
+    getComponentNodes: function getComponentNodes(nodes) {
+      var result = [];
+      if ((typeof nodes === 'undefined' ? 'undefined' : _typeof(nodes)) !== 'object') {
+        return result;
+      }
+      var __this = this;
+      Object.keys(nodes).map(function (key) {
+        var node = nodes[key];
+        if (typeof node.componentOptions !== 'undefined' && typeof node.componentOptions.tag !== 'undefined') {
+          if (_typeof(node.componentOptions) === 'object' && ['form-view', 'form-checkbox', 'form-input', 'form-text', 'form-select'].indexOf(node.componentOptions.tag) > -1 && _typeof(node.componentOptions.propsData) === 'object' && typeof node.componentOptions.propsData.errorCode === 'string') {
+            result.push(node);
+          }
+        } else if (typeof node.tag !== 'undefined') {
+          var childComponents = __this.getComponentNodes(node.children);
+          if (Array.isArray(childComponents)) {
+            childComponents.forEach(function ($comp) {
+              result.push($comp);
+            });
+          }
+        }
+      });
+      return result;
+    },
     submitForm: function submitForm($event) {
       var _this2 = this;
 
@@ -1788,7 +1817,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInterface_vue__ = __webpack_require__(5);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_14547711_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_597a8c33_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
 /* script */
 
@@ -1806,8 +1835,8 @@ var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FormInterface_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_14547711_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_14547711_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_597a8c33_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_597a8c33_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FormInterface_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,

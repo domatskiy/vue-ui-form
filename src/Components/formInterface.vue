@@ -91,18 +91,24 @@
     mounted: function () {
       let nodes = this.$slots.default
       let errCodes = []
-      console.warn('vue-form-ui => debug=', this.debug)
       if (this.debug === true) {
+        console.warn('vue-form-ui => debug=', this.debug)
         console.debug('vue-form-ui => FormInterface nodes=', nodes)
       }
-      Object.keys(nodes).map(function (key) {
-        let node = nodes[key]
-        if (typeof node.componentOptions === 'object' && typeof node.componentOptions.tag !== 'undefined') {
-          if (['form-view', 'form-checkbox', 'form-input', 'form-text', 'form-select'].indexOf(node.componentOptions.tag) > -1 && typeof node.componentOptions.propsData === 'object' && typeof node.componentOptions.propsData.errorCode === 'string') {
+
+      let comp = this.getComponentNodes(nodes)
+      if (this.debug === true) {
+        console.log('vue-form-ui => getComponentNodes', comp)
+      }
+
+      if (Array.isArray(comp)) {
+        comp.forEach((node) => {
+          if (typeof node.componentOptions.propsData.errorCode === 'string') {
             errCodes.push(node.componentOptions.propsData.errorCode)
           }
-        }
-      })
+        })
+      }
+
       this.$set(this, 'errCodes', errCodes)
       if (this.debug === true) {
         console.debug('vue-form-ui => FormInterface, errCodes=', errCodes)
@@ -160,6 +166,29 @@
       })
     },
     methods: {
+      getComponentNodes: function (nodes) {
+        let result = []
+        if (typeof nodes !== 'object') {
+          return result
+        }
+        let __this = this
+        Object.keys(nodes).map(function (key) {
+          let node = nodes[key]
+          if (typeof node.componentOptions !== 'undefined' && typeof node.componentOptions.tag !== 'undefined') {
+            if (typeof node.componentOptions === 'object' && ['form-view', 'form-checkbox', 'form-input', 'form-text', 'form-select'].indexOf(node.componentOptions.tag) > -1 && typeof node.componentOptions.propsData === 'object' && typeof node.componentOptions.propsData.errorCode === 'string') {
+              result.push(node)
+            }
+          } else if (typeof node.tag !== 'undefined') {
+            let childComponents = __this.getComponentNodes(node.children)
+            if (Array.isArray(childComponents)) {
+              childComponents.forEach(($comp) => {
+                result.push($comp)
+              })
+            }
+          }
+        })
+        return result
+      },
       submitForm: function ($event) {
         $event.preventDefault()
         $event.stopPropagation()

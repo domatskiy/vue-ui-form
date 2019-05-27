@@ -6,6 +6,7 @@
 			:data="formData"
 			:processing="formProcessing"
 			:errors="formErrors"
+			:debug="true"
 			@save="saveForm"
 			@apply="applyForm"
 			@cancel="cancelForm">
@@ -197,7 +198,7 @@ export default {
         this.formErrors = {}
         this.formErrors.active = 'error active'
         this.formErrors.sort = 'error sort'
-        this.formErrors.name = 'error name'
+        this.formErrors.name = ['error name']
 
         console.log('applyChanges err 2')
         this.formErrors.selectOne = 'error selectOne'

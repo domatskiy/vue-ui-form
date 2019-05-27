@@ -18,6 +18,9 @@
                 <slot name="hint"></slot>
             </div>
         </div>
+        <div class="error" v-if="Array.isArray(errors) && errors.length > 0">
+          <span v-for="err in errors">{{err}}</span>
+        </div>
         <span class="error" v-if="errors.length > 0">
             <div v-for="err in errors">{{err}}</div>
         </span>

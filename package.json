@@ -1,6 +1,6 @@
 {
   "name": "vue-ui-form",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "vue form interface",
   "author": "Domatskiy",
   "private": false,
@@ -29,14 +29,15 @@
     "vue-selectpicker": "^1.1.3"
   },
   "devDependencies": {
-    "autoprefixer": "9.3.1",
-    "babel-core": "^6.22.1",
+    "autoprefixer": "9.6.0",
+    "babel-core": "6.26.3",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^7.1.1",
     "babel-plugin-istanbul": "^4.1.1",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",
+    "babel-preset-es2015": "6.24.1",
     "babel-register": "^6.22.0",
     "chai": "4.2.0",
     "chalk": "2.4.1",

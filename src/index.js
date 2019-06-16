@@ -18,7 +18,7 @@ export {
 
 export default {
   install: function (VueInstance, options) {
-    const components = [
+    var components = [
       FormInterface,
       FormView,
       FormInput,

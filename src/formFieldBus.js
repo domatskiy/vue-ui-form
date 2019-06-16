@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const formFieldBus = new Vue({
+let formFieldBus = new Vue({
   data () {
     return {
       body_click_handler: null

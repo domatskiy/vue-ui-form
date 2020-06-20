@@ -127,7 +127,7 @@ export default {
       }
 
       if (typeof this.value !== 'undefined' && this.value !== null) {
-        if (typeof this.value === 'number' && this.value !== null) {
+        if (typeof this.value === 'number') {
           hasVal = true
         } else if (typeof this.value === 'string' && this.value.length > 0) {
           hasVal = true
@@ -144,6 +144,10 @@ export default {
 
       if (this.disabled === true || this.processing === true) {
         cl.push('form__field--disabled')
+      }
+
+      if (this.processing === true) {
+        cl.push('form__field--processing')
       }
 
       if (this.errors.length > 0) {

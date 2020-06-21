@@ -52,7 +52,7 @@ export default {
   created: function () {
     formFieldBus.$on('form-interface-processing', ($processing) => {
       // console.log('form-interface-processing', $processing)
-      this.processing = $processing
+      this.$set(this, 'processing', $processing)
     })
 
     formFieldBus.$on('errors', ($errors) => {
